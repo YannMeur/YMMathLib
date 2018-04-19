@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'YMMathLib'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of YMMathLib.'
+  s.summary          = 'Implémentation en Swift des notions de Vecteur et de Matrice.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,14 +18,16 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+Implémente en Swift des notions de Vecteur et de Matrice pour pouvoir
+faire des études et des calculs sur des séries de données.
+Implémentation des principales opérations sur ces modèles mathématiques.
                        DESC
 
-  s.homepage         = 'https://github.com/PaulHaus/YMMathLib'
+  s.homepage         = 'https://github.com/YannMeur/YMMathLib'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'PaulHaus' => 'yann.meurisse@wanadoo.fr' }
-  s.source           = { :git => 'https://github.com/PaulHaus/YMMathLib.git', :tag => s.version.to_s }
+  s.author           = { 'YannMeur' => 'yann.meurisse@wanadoo.fr' }
+  s.source           = { :git => 'https://github.com/YannMeur/YMMathLib.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform = :osx
@@ -40,4 +42,5 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'Cocoa'
   # s.dependency 'AFNetworking', '~> 2.3'
+  
 end

@@ -1,0 +1,16 @@
+PODS:
+  - YMMathLib (0.1.0)
+
+DEPENDENCIES:
+  - YMMathLib (from `../`)
+
+EXTERNAL SOURCES:
+  YMMathLib:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  YMMathLib: e0d0f88329d7f011ecf9343659656325b2dee3ab
+
+PODFILE CHECKSUM: ef9ac7aa1e9aa1cd8e41302ae78ebaafabc5ffe6
+
+COCOAPODS: 1.5.0

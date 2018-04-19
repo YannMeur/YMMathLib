@@ -1,6 +1,6 @@
 # YMMathLib
 
-[![CI Status](http://img.shields.io/travis/PaulHaus/YMMathLib.svg?style=flat)](https://travis-ci.org/PaulHaus/YMMathLib)
+[![CI Status](http://img.shields.io/travis/YannMeur/YMMathLib.svg?style=flat)](https://travis-ci.org/YannMeur/YMMathLib)
 [![Version](https://img.shields.io/cocoapods/v/YMMathLib.svg?style=flat)](http://cocoapods.org/pods/YMMathLib)
 [![License](https://img.shields.io/cocoapods/l/YMMathLib.svg?style=flat)](http://cocoapods.org/pods/YMMathLib)
 [![Platform](https://img.shields.io/cocoapods/p/YMMathLib.svg?style=flat)](http://cocoapods.org/pods/YMMathLib)
@@ -22,7 +22,7 @@ pod 'YMMathLib'
 
 ## Author
 
-PaulHaus, yann.meurisse@wanadoo.fr
+YannMeur, yann.meurisse@wanadoo.fr
 
 ## License
 

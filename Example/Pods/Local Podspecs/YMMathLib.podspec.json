@@ -1,0 +1,22 @@
+{
+  "name": "YMMathLib",
+  "version": "0.1.0",
+  "summary": "A short description of YMMathLib.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/PaulHaus/YMMathLib",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "PaulHaus": "yann.meurisse@wanadoo.fr"
+  },
+  "source": {
+    "git": "https://github.com/PaulHaus/YMMathLib.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "osx": "10.10"
+  },
+  "source_files": "YMMathLib/Classes/**/*"
+}
