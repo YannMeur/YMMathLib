@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'YMMathLib_Example' do
+  pod 'YMMathLib', :path => '../'
+
+  target 'YMMathLib_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
