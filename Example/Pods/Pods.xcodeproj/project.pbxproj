@@ -3,20 +3,22 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0639FE1998C874ABC16A33EF8CA2231E /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DDDCAEA8A7BB2034CF6B2F4E2EDDEC /* ReplaceMe.swift */; };
+		161109C8374F7DF3B11A15DC065D645E /* MyMathLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C239B9B1E2D8553DD5EC83D4EC9B1D1 /* MyMathLib.swift */; };
 		26FAE7FE5E3BCF21C45A4070732FA0F8 /* Pods-YMMathLib_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 65917F829DE6B4882CA0021148CB22F5 /* Pods-YMMathLib_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2F3F0ABFA7E2F4CAE7C232610EAF2A22 /* YMMathLib-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFE9E50E93014A0834C6BEC4C6451B7 /* YMMathLib-dummy.m */; };
 		357D57902B1A91C305DD8B610BD5E232 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF428FC7C7A6555B2B02D8E238C8D8F2 /* Cocoa.framework */; };
+		38320304FA5F7C7D2ED6A97A8D98A3EE /* Matrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8F8BA46CBB40AFB3B78EBC3DECC19F /* Matrice.swift */; };
 		435611F5472272E6AC77E68D3307F006 /* Pods-YMMathLib_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 22494497822306FCEF2F5887AFEB568A /* Pods-YMMathLib_Tests-dummy.m */; };
+		494DBC9495A5797044AB106FB25C405D /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F81C7907716F1219F79B3BD9294C58 /* ReplaceMe.swift */; };
 		67148EED8B2328F984F0105FE29DAE12 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF428FC7C7A6555B2B02D8E238C8D8F2 /* Cocoa.framework */; };
 		6B2778F603F8157268C0AE20D3FE4779 /* Pods-YMMathLib_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CC841D7411B037B87E297213D438FF66 /* Pods-YMMathLib_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D4120F82FB131C928A27744D257365D5 /* YMMathLib-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C8E8E2D0A732DA377F7685D813A35695 /* YMMathLib-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4120F82FB131C928A27744D257365D5 /* YMMathLib-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E2A34CADCECDAE585927B52B41F5E67 /* YMMathLib-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D573AE907F7FC85EC2CCE9D4FAA9A239 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF428FC7C7A6555B2B02D8E238C8D8F2 /* Cocoa.framework */; };
 		DBCA3BB932B0528DB7B781C9948A5EF5 /* Pods-YMMathLib_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3493C2F6BF36FA07121E80029E629C84 /* Pods-YMMathLib_Example-dummy.m */; };
-		EBAEE494A2BF70AEA48E048C2CC54C91 /* YMMathLib-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 28EA49C0528CC59C09ABDA34F50B77F5 /* YMMathLib-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,41 +39,43 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00B6829A75EC5693881A9789B68137CA /* YMMathLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = YMMathLib.framework; path = YMMathLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1CB9B0C4B71881143CBF9D671F89CF74 /* YMMathLib.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = YMMathLib.modulemap; sourceTree = "<group>"; };
+		00B6829A75EC5693881A9789B68137CA /* YMMathLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YMMathLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		00C3FCC114C5C69D0D11B77D385A4BD8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0FD0668B71F12724E7605FF80BA61E8C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		1602CD3364E521CDF5D30C21ED2E63C2 /* YMMathLib.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = YMMathLib.modulemap; sourceTree = "<group>"; };
 		218D84B2DC38BBE4303D46097121F16C /* Pods-YMMathLib_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YMMathLib_Example-frameworks.sh"; sourceTree = "<group>"; };
 		22494497822306FCEF2F5887AFEB568A /* Pods-YMMathLib_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-YMMathLib_Tests-dummy.m"; sourceTree = "<group>"; };
 		232268BCBEA523FFD36796675174B2BB /* Pods-YMMathLib_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-YMMathLib_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		23CFA99948ECED6A7353B7628CAEE0CE /* Pods-YMMathLib_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YMMathLib_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		272E25E7D362DDEB4D892628FEA2BD6B /* Pods-YMMathLib_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YMMathLib_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		285A731356563D784725D5868A2DA1C2 /* Pods-YMMathLib_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-YMMathLib_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		28EA49C0528CC59C09ABDA34F50B77F5 /* YMMathLib-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "YMMathLib-dummy.m"; sourceTree = "<group>"; };
 		30C815718C80AFD22916226EA0348342 /* Pods-YMMathLib_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-YMMathLib_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		3493C2F6BF36FA07121E80029E629C84 /* Pods-YMMathLib_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-YMMathLib_Example-dummy.m"; sourceTree = "<group>"; };
 		3BC07E4845CBB82B4E6F9333A43AE7C6 /* Pods-YMMathLib_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YMMathLib_Example.release.xcconfig"; sourceTree = "<group>"; };
+		3C239B9B1E2D8553DD5EC83D4EC9B1D1 /* MyMathLib.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MyMathLib.swift; path = YMMathLib/Classes/MyMathLib.swift; sourceTree = "<group>"; };
 		46859A3EC3590F8ADD1188FAE0764A9D /* Pods-YMMathLib_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-YMMathLib_Tests.modulemap"; sourceTree = "<group>"; };
-		46DDDCAEA8A7BB2034CF6B2F4E2EDDEC /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = YMMathLib/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
-		4B5401DCF8713179544649A79645F2AE /* YMMathLib.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = YMMathLib.xcconfig; sourceTree = "<group>"; };
 		561F925FB83D56BB4F1E096A6997A591 /* Pods-YMMathLib_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YMMathLib_Example-resources.sh"; sourceTree = "<group>"; };
-		5A7DE0A5662B8B270F20A0AF80DEABF5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		5A13F48A99A90B6F0073DE61CB292135 /* YMMathLib.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = YMMathLib.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		5B804A1D647629FA5B5E2534E52E1096 /* YMMathLib.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = YMMathLib.xcconfig; sourceTree = "<group>"; };
 		65917F829DE6B4882CA0021148CB22F5 /* Pods-YMMathLib_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-YMMathLib_Example-umbrella.h"; sourceTree = "<group>"; };
-		6A3D88BD64DCED5187799DFD7A920521 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		78DD4CE20F6048AA8A9B8077CF041D1C /* YMMathLib-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YMMathLib-prefix.pch"; sourceTree = "<group>"; };
-		7DABCA843FF55E576D75BF0DCC5F3EB6 /* YMMathLib.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = YMMathLib.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		6E2A34CADCECDAE585927B52B41F5E67 /* YMMathLib-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YMMathLib-umbrella.h"; sourceTree = "<group>"; };
 		86FD1990F6BBB8C2F54841F11B1CD58A /* Pods-YMMathLib_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YMMathLib_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		8D19C28A7DDFE6F7F902AB918B330076 /* YMMathLib-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YMMathLib-prefix.pch"; sourceTree = "<group>"; };
+		8D8F8BA46CBB40AFB3B78EBC3DECC19F /* Matrice.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Matrice.swift; path = YMMathLib/Classes/Matrice.swift; sourceTree = "<group>"; };
 		8DD293ADB22B9BA743FB113A7F10CA22 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9218A61F38FAB1238C06FE9E9FBEA3F0 /* Pods_YMMathLib_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_YMMathLib_Example.framework; path = "Pods-YMMathLib_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9218A61F38FAB1238C06FE9E9FBEA3F0 /* Pods_YMMathLib_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YMMathLib_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A6F81C7907716F1219F79B3BD9294C58 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = YMMathLib/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
 		AF4340616AE9AAA95F86634927CC1B4B /* Pods-YMMathLib_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-YMMathLib_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		C8E8E2D0A732DA377F7685D813A35695 /* YMMathLib-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YMMathLib-umbrella.h"; sourceTree = "<group>"; };
 		CC841D7411B037B87E297213D438FF66 /* Pods-YMMathLib_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-YMMathLib_Tests-umbrella.h"; sourceTree = "<group>"; };
-		CCB12552A15E803B6EAB395A9CAE40A3 /* Pods_YMMathLib_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_YMMathLib_Tests.framework; path = "Pods-YMMathLib_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCB12552A15E803B6EAB395A9CAE40A3 /* Pods_YMMathLib_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YMMathLib_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D784A959E32F72B52B6C5E3DD098CE8F /* Pods-YMMathLib_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-YMMathLib_Tests-resources.sh"; sourceTree = "<group>"; };
+		DCFE9E50E93014A0834C6BEC4C6451B7 /* YMMathLib-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "YMMathLib-dummy.m"; sourceTree = "<group>"; };
 		DF428FC7C7A6555B2B02D8E238C8D8F2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		EDFEFE8200309AC46EBABA93B5B1F157 /* Pods-YMMathLib_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YMMathLib_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		F117F2CF18AA1BBB50E27AD2C78F0409 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6A174A0DEC455884A347104BA083934 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FBBD22F9CF7CDA228B5D9E7C11B0A73B /* Pods-YMMathLib_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-YMMathLib_Example.modulemap"; sourceTree = "<group>"; };
-		FE01B08A0A54A3EB45A35C685FE94F9E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,12 +106,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1454BFD1E51C878BFA7CDE2097E43B5B /* Development Pods */ = {
+		15C002CBA4935023370E1CDDACA08C21 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				7D44067DB8FF7F3375581F43D0F2F8FB /* YMMathLib */,
+				00C3FCC114C5C69D0D11B77D385A4BD8 /* Info.plist */,
+				1602CD3364E521CDF5D30C21ED2E63C2 /* YMMathLib.modulemap */,
+				5B804A1D647629FA5B5E2534E52E1096 /* YMMathLib.xcconfig */,
+				DCFE9E50E93014A0834C6BEC4C6451B7 /* YMMathLib-dummy.m */,
+				8D19C28A7DDFE6F7F902AB918B330076 /* YMMathLib-prefix.pch */,
+				6E2A34CADCECDAE585927B52B41F5E67 /* YMMathLib-umbrella.h */,
 			);
-			name = "Development Pods";
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/YMMathLib";
 			sourceTree = "<group>";
 		};
 		2507BC10853614C0848290D8B8B21560 /* Pods-YMMathLib_Example */ = {
@@ -128,14 +138,17 @@
 			path = "Target Support Files/Pods-YMMathLib_Example";
 			sourceTree = "<group>";
 		};
-		2E60638C7ADDD652E5133F0ACCF66A9E /* Pod */ = {
+		2A56FDDD4A78436FD5FE219180734177 /* YMMathLib */ = {
 			isa = PBXGroup;
 			children = (
-				5A7DE0A5662B8B270F20A0AF80DEABF5 /* LICENSE */,
-				FE01B08A0A54A3EB45A35C685FE94F9E /* README.md */,
-				7DABCA843FF55E576D75BF0DCC5F3EB6 /* YMMathLib.podspec */,
+				8D8F8BA46CBB40AFB3B78EBC3DECC19F /* Matrice.swift */,
+				3C239B9B1E2D8553DD5EC83D4EC9B1D1 /* MyMathLib.swift */,
+				A6F81C7907716F1219F79B3BD9294C58 /* ReplaceMe.swift */,
+				B96A413EF302189FAD8010470C9C74A0 /* Pod */,
+				15C002CBA4935023370E1CDDACA08C21 /* Support Files */,
 			);
-			name = Pod;
+			name = YMMathLib;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		32AC0F4546F3BD94CDCF1D8E7B65D456 /* Pods-YMMathLib_Tests */ = {
@@ -164,22 +177,11 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7D44067DB8FF7F3375581F43D0F2F8FB /* YMMathLib */ = {
-			isa = PBXGroup;
-			children = (
-				46DDDCAEA8A7BB2034CF6B2F4E2EDDEC /* ReplaceMe.swift */,
-				2E60638C7ADDD652E5133F0ACCF66A9E /* Pod */,
-				B18BE08C0A38CCD1197AB47E8EDA0C2C /* Support Files */,
-			);
-			name = YMMathLib;
-			path = ../..;
-			sourceTree = "<group>";
-		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				1454BFD1E51C878BFA7CDE2097E43B5B /* Development Pods */,
+				C73CD3148B06A945D271262C70777EAC /* Development Pods */,
 				39E9EE8210D861DFD82346C1F5EB7218 /* Frameworks */,
 				A6E4AD75FB3A98D1FF95BF994792381F /* Products */,
 				847963FE71F2F0540A80CF357BFF549E /* Targets Support Files */,
@@ -205,18 +207,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B18BE08C0A38CCD1197AB47E8EDA0C2C /* Support Files */ = {
+		B96A413EF302189FAD8010470C9C74A0 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				6A3D88BD64DCED5187799DFD7A920521 /* Info.plist */,
-				1CB9B0C4B71881143CBF9D671F89CF74 /* YMMathLib.modulemap */,
-				4B5401DCF8713179544649A79645F2AE /* YMMathLib.xcconfig */,
-				28EA49C0528CC59C09ABDA34F50B77F5 /* YMMathLib-dummy.m */,
-				78DD4CE20F6048AA8A9B8077CF041D1C /* YMMathLib-prefix.pch */,
-				C8E8E2D0A732DA377F7685D813A35695 /* YMMathLib-umbrella.h */,
+				0FD0668B71F12724E7605FF80BA61E8C /* LICENSE */,
+				F6A174A0DEC455884A347104BA083934 /* README.md */,
+				5A13F48A99A90B6F0073DE61CB292135 /* YMMathLib.podspec */,
 			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/YMMathLib";
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		C73CD3148B06A945D271262C70777EAC /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2A56FDDD4A78436FD5FE219180734177 /* YMMathLib */,
+			);
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		FA7AC8429882A95AA0810A9DCDED54FF /* OS X */ = {
@@ -297,7 +303,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D855C028E57AAD1432C5E8EC26679F9F /* Build configuration list for PBXNativeTarget "YMMathLib" */;
 			buildPhases = (
-				39395A76CAB4F9B5850A1E66989A8F01 /* Sources */,
+				9D7F34E5F92DA2AAEA7C44AC606772DE /* Sources */,
 				B7C59635DAD6470B51EA381AE4975ADE /* Frameworks */,
 				33F938DA968F400A3E9E845CB9E706B0 /* Headers */,
 			);
@@ -347,20 +353,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		39395A76CAB4F9B5850A1E66989A8F01 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0639FE1998C874ABC16A33EF8CA2231E /* ReplaceMe.swift in Sources */,
-				EBAEE494A2BF70AEA48E048C2CC54C91 /* YMMathLib-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		72292AFA9F7CA0F6E403D511FC26B8E9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				DBCA3BB932B0528DB7B781C9948A5EF5 /* Pods-YMMathLib_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D7F34E5F92DA2AAEA7C44AC606772DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38320304FA5F7C7D2ED6A97A8D98A3EE /* Matrice.swift in Sources */,
+				161109C8374F7DF3B11A15DC065D645E /* MyMathLib.swift in Sources */,
+				494DBC9495A5797044AB106FB25C405D /* ReplaceMe.swift in Sources */,
+				2F3F0ABFA7E2F4CAE7C232610EAF2A22 /* YMMathLib-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,7 +463,7 @@
 		};
 		1158923DB582955789924FE651D103F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B5401DCF8713179544649A79645F2AE /* YMMathLib.xcconfig */;
+			baseConfigurationReference = 5B804A1D647629FA5B5E2534E52E1096 /* YMMathLib.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -526,7 +534,7 @@
 		};
 		6A5607DF69F9E4AE8EE50019A46E5D19 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B5401DCF8713179544649A79645F2AE /* YMMathLib.xcconfig */;
+			baseConfigurationReference = 5B804A1D647629FA5B5E2534E52E1096 /* YMMathLib.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
