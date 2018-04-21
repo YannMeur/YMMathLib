@@ -1,18 +1,18 @@
 {
   "name": "YMMathLib",
   "version": "0.1.0",
-  "summary": "A short description of YMMathLib.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/PaulHaus/YMMathLib",
+  "summary": "Implémentation en Swift des notions de Vecteur et de Matrice.",
+  "description": "Implémente en Swift des notions de Vecteur et de Matrice pour pouvoir\nfaire des études et des calculs sur des séries de données.\nImplémentation des principales opérations sur ces modèles mathématiques.",
+  "homepage": "https://github.com/YannMeur/YMMathLib",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "PaulHaus": "yann.meurisse@wanadoo.fr"
+    "YannMeur": "yann.meurisse@wanadoo.fr"
   },
   "source": {
-    "git": "https://github.com/PaulHaus/YMMathLib.git",
+    "git": "https://github.com/YannMeur/YMMathLib.git",
     "tag": "0.1.0"
   },
   "platforms": {

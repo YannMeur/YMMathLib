@@ -19,6 +19,7 @@
 		D4120F82FB131C928A27744D257365D5 /* YMMathLib-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E2A34CADCECDAE585927B52B41F5E67 /* YMMathLib-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D573AE907F7FC85EC2CCE9D4FAA9A239 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF428FC7C7A6555B2B02D8E238C8D8F2 /* Cocoa.framework */; };
 		DBCA3BB932B0528DB7B781C9948A5EF5 /* Pods-YMMathLib_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3493C2F6BF36FA07121E80029E629C84 /* Pods-YMMathLib_Example-dummy.m */; };
+		EF34D5BB208B4472002FA721 /* Vecteur.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF34D5B9208B4414002FA721 /* Vecteur.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,9 @@
 		DCFE9E50E93014A0834C6BEC4C6451B7 /* YMMathLib-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "YMMathLib-dummy.m"; sourceTree = "<group>"; };
 		DF428FC7C7A6555B2B02D8E238C8D8F2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		EDFEFE8200309AC46EBABA93B5B1F157 /* Pods-YMMathLib_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-YMMathLib_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		EF34D5B6208B427A002FA721 /* Creating CocoaPod Tuto.pages */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Creating CocoaPod Tuto.pages"; sourceTree = "<group>"; };
+		EF34D5B9208B4414002FA721 /* Vecteur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vecteur.swift; path = YMMathLib/Classes/Vecteur.swift; sourceTree = "<group>"; };
+		EF6F360D208A4B6900D13876 /* A Faire.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "A Faire.rtf"; sourceTree = "<group>"; };
 		F117F2CF18AA1BBB50E27AD2C78F0409 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6A174A0DEC455884A347104BA083934 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FBBD22F9CF7CDA228B5D9E7C11B0A73B /* Pods-YMMathLib_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-YMMathLib_Example.modulemap"; sourceTree = "<group>"; };
@@ -141,11 +145,14 @@
 		2A56FDDD4A78436FD5FE219180734177 /* YMMathLib */ = {
 			isa = PBXGroup;
 			children = (
+				EF34D5B9208B4414002FA721 /* Vecteur.swift */,
 				8D8F8BA46CBB40AFB3B78EBC3DECC19F /* Matrice.swift */,
 				3C239B9B1E2D8553DD5EC83D4EC9B1D1 /* MyMathLib.swift */,
 				A6F81C7907716F1219F79B3BD9294C58 /* ReplaceMe.swift */,
 				B96A413EF302189FAD8010470C9C74A0 /* Pod */,
 				15C002CBA4935023370E1CDDACA08C21 /* Support Files */,
+				EF6F360D208A4B6900D13876 /* A Faire.rtf */,
+				EF34D5B6208B427A002FA721 /* Creating CocoaPod Tuto.pages */,
 			);
 			name = YMMathLib;
 			path = ../..;
@@ -324,6 +331,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
+				TargetAttributes = {
+					50B0BDC24FDCD1AC3D14CCD52E8CF959 = {
+						LastSwiftMigration = 0930;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -365,6 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF34D5BB208B4472002FA721 /* Vecteur.swift in Sources */,
 				38320304FA5F7C7D2ED6A97A8D98A3EE /* Matrice.swift in Sources */,
 				161109C8374F7DF3B11A15DC065D645E /* MyMathLib.swift in Sources */,
 				494DBC9495A5797044AB106FB25C405D /* ReplaceMe.swift in Sources */,
@@ -430,6 +443,7 @@
 			baseConfigurationReference = 3BC07E4845CBB82B4E6F9333A43AE7C6 /* Pods-YMMathLib_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -456,6 +470,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -500,6 +515,7 @@
 			baseConfigurationReference = 86FD1990F6BBB8C2F54841F11B1CD58A /* Pods-YMMathLib_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -527,6 +543,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

@@ -9,6 +9,12 @@ import Foundation
 
 postfix operator °
 
+/*********************************************************/
+/// Implémente la notion mathématique de Matrice (de Double)
+/// avec les principales opérations classiques :
+///
+/// TODO: Lister les opérations
+/*********************************************************/
 public class Matrice: CustomStringConvertible
 {
    // Tableau qui contient les composantes du vecteur
@@ -16,9 +22,15 @@ public class Matrice: CustomStringConvertible
    // Dimension du vecteur.
    var (nbl, nbc) = (0,0)
    
-   /********************************************************
-    Initialiseurs
-    *********************************************************/
+   /********************************************************/
+   /// Initialise la Matrice
+   ///
+   /// - parameters:
+   ///   - datas: : Tableau (unidimensionnel) des Doubles, de longueur
+   ///   nbl*nbc
+   ///   - nbl: : Nombre de lignes
+   ///   - nbc: : Nombre de colonnes
+    /*********************************************************/
    public init(_ datas: [Double], nbl: Int, nbc: Int)
    {
       if datas.count == nbl*nbc
@@ -58,9 +70,9 @@ public class Matrice: CustomStringConvertible
    
 
    
-   /*********************************************************
-    Implémente la conversion en String pour "\(Matrice)"
-    *********************************************************/
+   /*********************************************************/
+   /// Implémente la conversion en String pour "\\(Matrice)"
+   /*********************************************************/
    public var description: String
    {
       var result = ""
@@ -89,9 +101,9 @@ public class Matrice: CustomStringConvertible
       return result
    }
 
-   /*********************************************************
-    Retourne la dim. de la matrice sous forme de String
-    *********************************************************/
+   /*********************************************************/
+   /// Retourne la dim. de la matrice sous forme de String
+   /*********************************************************/
    public func dim() -> String
    {
       return "\(self.nbl)X\(self.nbc)"
@@ -110,11 +122,11 @@ public class Matrice: CustomStringConvertible
       }
    }
    
-   /*********************************************************
-    Implémente la transposition d'une Matrice à l'aide d'un
-    opérateur postfixé "°"
-    Retourne la transposée de la Matrice
-    *********************************************************/
+   /*********************************************************/
+   /// Implémente la transposition d'une Matrice à l'aide d'un
+   /// opérateur postfixé "°"
+   /// Retourne la transposée de la Matrice
+   /*********************************************************/
    public static postfix func °(m: Matrice) -> Matrice
    {
       var data: [Double] = []
@@ -196,20 +208,27 @@ public class Matrice: CustomStringConvertible
    }
 
 
-   /*********************************************************
-    Fonction qui retourne une ligne, sous forme d'un Vecteur,
-    de la matrice
-    TODO: Gérer les erreurs d'indice
-    *********************************************************/
+   /*********************************************************/
+   /// Fonction qui retourne une ligne, sous forme d'un Vecteur,
+   /// de la matrice.
+   ///
+   /// TODO: Gérer les erreurs d'indice
+   /// - parameters:
+   ///   - ind: : Indice de la ligne à retourner 0 ≤ .. < nbl
+   /*********************************************************/
    public func ligne(_ ind: Int) -> Vecteur
    {
       return (Vecteur(Array(self.data[ind*self.nbc...(ind+1)*self.nbc - 1]))).transpose()
    }
-   /*********************************************************
-    Fonction qui retourne une colonne, sous forme d'un Vecteur,
-    de la matrice
-    TODO: Gérer les erreurs d'indice
-    *********************************************************/
+   
+   /*********************************************************/
+   /// Fonction qui retourne une colonne, sous forme d'un Vecteur,
+   /// de la matrice
+   ///
+   /// TODO: Gérer les erreurs d'indice
+   /// - parameters:
+   ///   - ind: : Indice de la ligne à retourner 0 ≤ .. < nbc
+   /*********************************************************/
    public func colonne(_ ind: Int) -> Vecteur
    {
       var tempArray: [Double] = []
@@ -221,10 +240,10 @@ public class Matrice: CustomStringConvertible
       return Vecteur(tempArray)
    }
    
-   /*******************************************************************
-    Retourne une matrice Identité de même dimension
+   /*******************************************************************/
+   /// Retourne une matrice Identité de même dimension
    
-    ********************************************************************/
+   /********************************************************************/
    public func eye() -> Matrice
    {
       var zeros = Array(repeating: 0.0, count: self.nbl*self.nbc)
@@ -236,10 +255,10 @@ public class Matrice: CustomStringConvertible
       return I
    }
  
-   /*******************************************************************
-    Retourne la matrice "stochastique" associée :
-    somme des éléments de chaque lignes (tous≥0) = 1
-    ********************************************************************/
+   /*******************************************************************/
+   /// Retourne la matrice "stochastique" associée :
+   /// somme des éléments de chaque lignes (tous≥0) = 1
+   /********************************************************************/
    public func stochastique() -> Matrice?
    {
       var result = Matrice(self)
@@ -264,12 +283,14 @@ public class Matrice: CustomStringConvertible
       return result
    }
    
-   /*******************************************************************
-    Fonction qui retourne une Matrice trangulaire sup. "équivalente"
-    à la Matrice (carrée) fournie.
-    Fonction utilisée pour l'inversion par pivot de Gauss
-    TODO: Gérer les erreurs d'indice
-    *******************************************************************/
+   /*******************************************************************/
+   /// Fonction qui retourne une Matrice trangulaire sup. "équivalente"
+   /// à la Matrice (carrée) fournie.
+   ///
+   /// Fonction utilisée pour l'inversion par pivot de Gauss
+   ///
+   /// TODO: Gérer les erreurs d'indice
+   /*******************************************************************/
    public func triangSup(_ A: Matrice) -> Matrice
    {
       var B: Matrice = Matrice(A)
@@ -305,14 +326,20 @@ public class Matrice: CustomStringConvertible
    }
 
    
-   /*******************************************************************
-    Fonction qui retourne l'inverse d'une Matrice carrée
-    TODO: Gérer les erreurs d'indice 
-    *******************************************************************/
+   /*******************************************************************/
+   /// Fonction qui retourne l'inverse d'une Matrice carrée
+   ///
+   /// Pour l'instant :
+   ///
+   ///      let A = Matrice([8.0,1,6,3,5,7,4,9,2],nbl: 3,nbc: 3)
+   ///      let B = A.inv(A)
+   ///
+   /// TODO: Gérer les erreurs d'indice
+   /*******************************************************************/
    public func inv(_ A: Matrice) -> Matrice
    {
-      var B: Matrice = Matrice(A)
-      var I:Matrice = A.eye()
+      let B: Matrice = Matrice(A)
+      let I: Matrice = A.eye()
       let n = A.nbc
       
       print("I=\n\(I)")
@@ -382,5 +409,12 @@ public class Matrice: CustomStringConvertible
       }
       return I
    }
+}
+
+
+
+public func inv(_ x: Matrice) -> Matrice
+{
+   return x.inv(x)
 }
 
