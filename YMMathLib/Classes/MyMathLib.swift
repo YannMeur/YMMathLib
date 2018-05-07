@@ -47,7 +47,7 @@ public extension String
    }
    /*------------------------------------------------------------------------------------
     Retourne la sous-chaine comprise entre la chaineG(auche) et la chaineD(roite)
-    TODO : ajouter un reour nil possible -> String?
+    TODO : ajouter un retour nil possible -> String?
    ------------------------------------------------------------------------------------*/
    public func substringWithStringBounds(de chaineG: String, a chaineD: String) -> String
    {

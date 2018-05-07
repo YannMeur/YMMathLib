@@ -33,21 +33,62 @@ class ViewController: NSViewController {
    print(monVect3.transpose())
    print(monVect3.transpose()*monVect1)
    //var monVect4 = monVect3.transpose()*monVect1
-   let maMat1 = Matrice([8.0,1,6,3,5,7,4,9,2],nbl: 3,nbc: 3)
+   var maMat1 = Matrice([8.0,1,6,3,5,7,4,9,2],nbl: 3,nbc: 3)
    print("maMat1 : \n\(maMat1)")
    print("maMat1[2,1] :\n\(maMat1[2,1])")
    print("maMat1° : \n\(maMat1°)")
    print("maMat1 * maMat1° : \n\((maMat1 * maMat1°)!)")
    print("maMat1.triangSup(maMat1) :\n\(maMat1.triangSup(maMat1))")
-   var B = maMat1.inv(maMat1)
+   var B = maMat1.inv()
    print("inv(maMat1) :\n\(B))")
-   print("maMat1*B :\n\(maMat1*B))")
+   print("maMat1*B :\n\(String(describing: maMat1*B)))")
    print("maMat1.dim() :\n\(maMat1.dim())")
 
    
    print("inv(B) :\n\(inv(B))")
+   print("invert(B) :\n\(invert(B))")
    
+   var start = CACurrentMediaTime()
+   for i in 0...1000
+   {
+      let IB = inv(B)
    }
+   var end = CACurrentMediaTime()
+   print("Durée d'execution de inv() = \(end-start)")
+
+   start = CACurrentMediaTime()
+   for i in 0...1000
+   {
+      let IB = invert(B)
+   }
+   end = CACurrentMediaTime()
+   print("Durée d'execution de invert() = \(end-start)")
+
+   // Vérification svd
+   maMat1 = Matrice([8.0,1,3,5,4,9],nbl: 3,nbc: 2,rangement: "c")
+   print("maMat1 c/c : \n\(maMat1)")
+   maMat1 = Matrice([8.0,1,3,5,4,9],nbl: 3,nbc: 2)
+   print("maMat1 l/l : \n\(maMat1)")
+
+   let Results = svd(maMat1)
+   let UU = Results.U
+   let D = Results.D
+   let VV = Results.V
+   
+   print("UU.dim() :\n\(UU.dim())")
+   print("D.dim() :\n\(D.dim())")
+   print("VV.dim() :\n\(VV.dim())")
+   
+   print("UU :\n\(UU)")
+   print("D :\n\(D)")
+   print("VV :\n\(VV)")
+   
+   let X = (UU*D)!*(VV°)
+   print("X :\n\(X)")
+ 
+   
+   
+}
 
   override var representedObject: Any? {
     didSet {

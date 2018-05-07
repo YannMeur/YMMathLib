@@ -6,6 +6,7 @@
 //
 //  Modifié le 06/02/2018 à 16H20 depuis StatNotes
 import Foundation
+import Accelerate
 
 postfix operator °
 
@@ -18,6 +19,7 @@ postfix operator °
 public class Matrice: CustomStringConvertible
 {
    // Tableau qui contient les composantes du vecteur
+   //  ATTENTION : lues ligne par ligne !!
    var data: [Double] = []
    // Dimension du vecteur.
    var (nbl, nbc) = (0,0)
@@ -27,7 +29,7 @@ public class Matrice: CustomStringConvertible
    ///
    /// - parameters:
    ///   - datas: : Tableau (unidimensionnel) des Doubles, de longueur
-   ///   nbl*nbc
+   ///   nbl*nbc, rangés implicitement ligne par ligne
    ///   - nbl: : Nombre de lignes
    ///   - nbc: : Nombre de colonnes
     /*********************************************************/
@@ -46,7 +48,42 @@ public class Matrice: CustomStringConvertible
          print("Erreur : Nb d'éléments du tableau != nbl*nbc !!")
       }
    }
-   
+ 
+   /********************************************************/
+   /// Initialise la Matrice
+   ///
+   /// - parameters:
+   ///   - datas: : Tableau (unidimensionnel) des Doubles, de longueur
+   ///   nbl*nbc, rangés implicitement ligne par ligne
+   ///   - nbl: : Nombre de lignes
+   ///   - nbc: : Nombre de colonnes
+   ///   - rangement: : si = "c" ou "C" => rangement colonne/colonne
+   ///                  sinon rangement par défaut (ligne/ligne)
+   /*********************************************************/
+   public init(_ datas: [Double], nbl: Int, nbc: Int, rangement: String)
+   {
+      if datas.count == nbl*nbc
+      {
+         if rangement == "c" || rangement == "C"
+         {
+            let T = (Matrice(datas, nbl: nbc,  nbc: nbl ))°
+            self.data = T.data
+         }
+         else
+         {
+            for element in datas
+            {
+               self.data.append(element)
+            }
+         }
+         self.nbc = nbc
+         self.nbl = nbl
+      } else
+      {
+         print("Erreur : Nb d'éléments du tableau != nbl*nbc !!")
+      }
+   }
+
    public init(_ M: Matrice)
    {
       self.data = M.data
@@ -68,7 +105,7 @@ public class Matrice: CustomStringConvertible
       self.nbc = nbl
    }
    
-
+   
    
    /*********************************************************/
    /// Implémente la conversion en String pour "\\(Matrice)"
@@ -246,8 +283,8 @@ public class Matrice: CustomStringConvertible
    /********************************************************************/
    public func eye() -> Matrice
    {
-      var zeros = Array(repeating: 0.0, count: self.nbl*self.nbc)
-      var I = Matrice(zeros,nbl: self.nbl, nbc: self.nbc)
+      let zeros = Array(repeating: 0.0, count: self.nbl*self.nbc)
+      let I = Matrice(zeros,nbl: self.nbl, nbc: self.nbc)
       for i in 0...self.nbc-1
       {
          I[i,i] = 1.0
@@ -261,7 +298,7 @@ public class Matrice: CustomStringConvertible
    /********************************************************************/
    public func stochastique() -> Matrice?
    {
-      var result = Matrice(self)
+      let result = Matrice(self)
       for x in 0...self.nbl-1
       {
          let coef = (self.ligne(x)).somme()
@@ -293,7 +330,7 @@ public class Matrice: CustomStringConvertible
    /*******************************************************************/
    public func triangSup(_ A: Matrice) -> Matrice
    {
-      var B: Matrice = Matrice(A)
+      let B: Matrice = Matrice(A)
       let n = A.nbc
       
       for j in 0...n-2
@@ -332,17 +369,18 @@ public class Matrice: CustomStringConvertible
    /// Pour l'instant :
    ///
    ///      let A = Matrice([8.0,1,6,3,5,7,4,9,2],nbl: 3,nbc: 3)
-   ///      let B = A.inv(A)
+   ///      let B = A.inv()
    ///
    /// TODO: Gérer les erreurs d'indice
    /*******************************************************************/
-   public func inv(_ A: Matrice) -> Matrice
+   public func inv() -> Matrice
    {
+      let A: Matrice = self
       let B: Matrice = Matrice(A)
       let I: Matrice = A.eye()
       let n = A.nbc
       
-      print("I=\n\(I)")
+      //print("I=\n\(I)")
       
       // On triangularise la matrice
       for j in 0...n-2
@@ -378,7 +416,7 @@ public class Matrice: CustomStringConvertible
          }
       }
       
-      print("I=\n\(I)")
+      //print("I=\n\(I)")
       
       // On diagonalise la matrice
       for jj in 0...n-2
@@ -395,8 +433,8 @@ public class Matrice: CustomStringConvertible
          }
       }
       
-      print("B=\n\(B)")
-      print("I=\n\(I)")
+      //print("B=\n\(B)")
+      //print("I=\n\(I)")
       
       // On fait apparaitre des "1" sur la diagonale de B
       for i in 0...n-1
@@ -409,12 +447,169 @@ public class Matrice: CustomStringConvertible
       }
       return I
    }
+
+   
+
+}
+/*=========================================================================*/
+//   Fin de la définition de la class Matrice
+/*=========================================================================*/
+
+
+/*********************************************************/
+/// Retourne une matrice diagonale à partir d'un Vecteur
+/*********************************************************/
+public func diag(v: Vecteur) -> Matrice
+{
+   let nbElem = max(v.nbl,v.nbc)
+   let result = Matrice(nbl: nbElem, nbc: nbElem)
+   for i in 0...nbElem-1
+   {
+      result[i,i]  = v[i]
+   }
+   return result
+}
+
+/*********************************************************/
+/// Retourne une matrice diagonale de "nbl" lignes et
+/// "nbc" colonnes à partir d'un Vecteur
+/// à faire : vérifier compatibilité des nombres
+/*********************************************************/
+public func diag(v: Vecteur, nl: Int, nc: Int) -> Matrice
+{
+   let nbElem = max(v.nbl,v.nbc)
+   let result = Matrice(nbl: nl, nbc: nc)
+   for i in 0...nbElem-1
+   {
+      result[i,i]  = v[i]
+   }
+   return result
 }
 
 
+/*******************************************************************/
+/// Fonction qui retourne l'inverse d'une Matrice carrée
+///
+/// Pour l'instant :
+///
+///      let A = Matrice([8.0,1,6,3,5,7,4,9,2],nbl: 3,nbc: 3)
+///      let B = inv(A)
+///
+/// TODO: Gérer les erreurs d'indice
+/*******************************************************************/
 
 public func inv(_ x: Matrice) -> Matrice
 {
-   return x.inv(x)
+   return x.inv()
+}
+
+
+/*******************************************************************/
+/// Fonction qui retourne l'inverse d'une Matrice carrée
+///
+///Utilise Lapack
+///
+///      let A = Matrice([8.0,1,6,3,5,7,4,9,2],nbl: 3,nbc: 3)
+///      let B = invert(A)
+///
+/// TODO: Gérer les erreurs d'indice
+/*******************************************************************/
+public func invert(_ x: Matrice) -> Matrice
+{
+   
+   let nbl = x.nbl
+   let nbc = x.nbc
+   
+   var inMatrix: [Double] = x.data
+   var N = __CLPK_integer(sqrt(Double(inMatrix.count)))
+   var pivots = [__CLPK_integer](repeating: 0, count: Int(N))
+   var workspace = [Double](repeating: 0.0, count: Int(N))
+   var error : __CLPK_integer = 0
+   
+   withUnsafeMutablePointer(to: &N)
+   {
+      dgetrf_($0, $0, &inMatrix, $0, &pivots, &error)
+      dgetri_($0, &inMatrix, $0, &pivots, &workspace, $0, &error)
+   }
+   let y = Matrice(inMatrix,nbl: nbl,nbc: nbc)
+   return y
+}
+
+/*******************************************************************/
+/// Décomposition en valeurs singulières,
+/// retourne un tuple
+///
+/// Utilise Lapack
+///
+/// A = U * SIGMA * V^t
+///
+///      let A = Matrice([8.0,1,6,3,5,7,4,9,2],nbl: 3,nbc: 3)
+///      let Results = svd(A)
+///      let UU = Results.U
+///      let D = Results.D
+///      let VV = Results.V
+///
+/// TODO: Gérer les erreurs d'indice
+///
+/// Rem: Attention avec Lapack les éléments d'une matrice sont lus
+/// colonne par colonne !!
+/*******************************************************************/
+public func svd(_ x: Matrice) -> (U: Matrice, D: Matrice, V: Matrice)
+{
+   let nbl = x.nbl
+   let nbc = x.nbc
+   
+   let resU: Matrice
+   let resD: Matrice
+   let resV: Matrice
+
+
+   var singleChar = "G"
+   var JOBA = Int8(UInt8(ascii: singleChar.unicodeScalars[singleChar.startIndex]))
+   singleChar = "U"
+   var JOBU = Int8(UInt8(ascii: singleChar.unicodeScalars[singleChar.startIndex]))
+   singleChar = "V"
+   var JOBV = Int8(UInt8(ascii: singleChar.unicodeScalars[singleChar.startIndex]))
+
+   //let JOBA = "G"
+   //let JOBU = "U"
+   //let JOBV = "V"
+   var M = __CLPK_integer(nbl)
+   var N = __CLPK_integer(nbc)
+   var A: [Double] = (x°).data      // Au retour : colonnes orthogonalse de la matrice U
+   var LDA = __CLPK_integer(nbl)
+   var SVA = [Double](repeating: 0.0, count: Int(N))  // Les valeurs singulières de A
+   var MV : __CLPK_integer = 0
+   //var V: [[Double]] = Array(repeating: Array(repeating: 0.0, count: nbc), count: nbc)
+   var V = [Double](repeating: 0.0, count: Int(N*N))  // Vecteurs singuliers à droite
+   var LDV = __CLPK_integer(nbc)
+   
+   let lwork = max(6,nbl+nbc)
+   var WORK = [Double](repeating: 0.0, count: lwork)
+   var LWORK = __CLPK_integer(lwork)
+   
+   var INFO : __CLPK_integer = 0
+   
+   dgesvj_(&JOBA,&JOBU,&JOBV,&M,&N,&A,&LDA,&SVA,&MV,&V,&LDV,&WORK,&LWORK,&INFO)
+   
+   print("A : \n\(A)")
+   print("SVA : \n\(SVA)")
+   print("V : \n\(V)")
+   
+   print("nbl = \n\(nbl)")
+   
+   resU = Matrice(A,nbl: nbl,nbc: nbc,rangement: "c")
+   resD = diag(v: Vecteur(SVA))
+   resV = Matrice(V,nbl: nbc,nbc: nbc,rangement: "c")
+   
+   print("resU.dim() :\n\(resU.dim())")
+   print("resD.dim() :\n\(resD.dim())")
+   print("resV.dim() :\n\(resV.dim())")
+   /*
+   print("resU : \n\(resU)")
+   print("resD : \n\(resD)")
+   print("resV : \n\(resV)")
+   */
+   return(resU,resD,resV)
 }
 
