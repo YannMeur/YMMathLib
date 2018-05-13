@@ -7,12 +7,49 @@ let epsilonCar = "\u{03B5}"
 
 postfix operator °
 
+
+/*============================================================*/
+/// protocol TypeArithmetique
+/// doit implémenter :
+/// - la somme de 2 élements
+/// - le produit de 2 élements
+/// - le quotient de 2 élements
+///
+/// Rem: Je pense que Self désigne le Type (la Class) respectant
+/// ce protocol
+/*============================================================*/
+public protocol TypeArithmetique: Equatable
+{
+   //associatedtype leType
+   // Operations (predefined)
+   prefix static func + (_: Self)->Self
+   prefix static func - (_: Self)->Self
+   init()
+   init(_: Double)
+   static func + (_: Self, _: Self)->Self
+   static func - (_: Self, _: Self)->Self
+   static func * (_: Self, _: Self)->Self
+   static func * (_: Self, _: Double)->Self
+   static func * (_: Double, _: Self)->Self
+   static func / (_: Self, _: Self)->Self
+   static func += (_: inout Self, _: Self)
+   //static func == (_: Self, _: Self)->Bool
+   //static func abs (_: Self)->Double
+}
+
+
 /*===========================================================================
  Extension de String pour les sous-chaines
  https://stackoverflow.com/questions/32305891/index-of-a-substring-in-a-string-with-swift
  ===========================================================================*/
 public extension String
 {
+   init(form: String, _ z: Complexe)
+   {
+      let result: String = String(format: form,z.re)+" + "+String(format: form,z.im)+"i"
+      self = result
+   }
+
    public func index(of string: String, options: CompareOptions = .literal) -> Index?
    {
       return range(of: string, options: options)?.lowerBound
@@ -84,7 +121,7 @@ public extension Range where Bound: _Double
       let lowerB:Double = lhs.lowerBound as! Double
       let upperB:Double = lhs.upperBound as! Double
       let shift:Double = rhs as! Double
-      var result: Range = lowerB + shift  ..< upperB + shift as! Range<Bound>
+      let result: Range = lowerB + shift  ..< upperB + shift as! Range<Bound>
       return result
    }
 }
@@ -194,7 +231,7 @@ public extension Int
 /********************************************************************
 // MARK: Double Extension
  ********************************************************************/
-public extension Double
+ extension Double: TypeArithmetique
 {
    
    /// Returns a random floating point number between 0.0 and 1.0, inclusive.
@@ -293,16 +330,16 @@ public func typeDe<T>(_ x: T)
    {
       print("x est un Int")
    } else
-   if x is Matrice
+      if x is Matrice<Double>
    {
-         print("x est une Matrice")
+         print("x est une Matrice de Double")
    } else
-      if x is Vecteur
+      if x is Vecteur<Double>
       {
-         print("x est un Vecteur")
+         print("x est un Vecteur de Double")
    } else
    {
-          print("x est de type inconnu !")
+         print("x est de type inconnu !")
    }
    
 

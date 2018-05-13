@@ -6,9 +6,8 @@
 //
 //  Modifié le 06/02/2018 à 16H20 depuis StatNotes
 //
-// Nouvelle version où les données (data) de la Matrice sont
-// lues colonne par colonne
-
+// Ancienne version où les données (data) de la Matrice sont
+// lues ligne par ligne
 import Foundation
 import Accelerate
 
@@ -20,11 +19,11 @@ postfix operator °
 ///
 /// TODO: Lister les opérations
 /*********************************************************/
-public class Matrice<T: TypeArithmetique>: CustomStringConvertible
+public class Matrice: CustomStringConvertible
 {
    // Tableau qui contient les composantes du vecteur
-   //  ATTENTION : lues colonne par colonne !!
-   var data: [T] = []
+   //  ATTENTION : lues ligne par ligne !!
+   var data: [Double] = []
    // Dimension du vecteur.
    var (nbl, nbc) = (0,0)
    
@@ -32,12 +31,12 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
    /// Initialise la Matrice
    ///
    /// - parameters:
-   ///   - datas: : Tableau (unidimensionnel) des T, de longueur
+   ///   - datas: : Tableau (unidimensionnel) des Doubles, de longueur
    ///   nbl*nbc, rangés implicitement ligne par ligne
    ///   - nbl: : Nombre de lignes
    ///   - nbc: : Nombre de colonnes
     /*********************************************************/
-   public init(_ datas: [T], nbl: Int, nbc: Int)
+   public init(_ datas: [Double], nbl: Int, nbc: Int)
    {
       if datas.count == nbl*nbc
       {
@@ -57,22 +56,21 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
    /// Initialise la Matrice
    ///
    /// - parameters:
-   ///   - datas: : Tableau (unidimensionnel) des T, de longueur
+   ///   - datas: : Tableau (unidimensionnel) des Doubles, de longueur
    ///   nbl*nbc, rangés implicitement ligne par ligne
    ///   - nbl: : Nombre de lignes
    ///   - nbc: : Nombre de colonnes
-   ///   - rangement: : si = "l" ou "L" => rangement ligne/ligne
-   ///                  sinon rangement par défaut (colonne/colonne)
+   ///   - rangement: : si = "c" ou "C" => rangement colonne/colonne
+   ///                  sinon rangement par défaut (ligne/ligne)
    /*********************************************************/
-   public init(_ datas: [T], nbl: Int, nbc: Int, rangement: String)
+   public init(_ datas: [Double], nbl: Int, nbc: Int, rangement: String)
    {
       if datas.count == nbl*nbc
       {
-         if rangement == "l" || rangement == "L"
+         if rangement == "c" || rangement == "C"
          {
             let T = (Matrice(datas, nbl: nbc,  nbc: nbl ))°
             self.data = T.data
-            print(" on passe par rangement == \"l\"")
          }
          else
          {
@@ -98,14 +96,14 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
    
    public init(nbl: Int, nbc: Int)
    {
-      self.data = Array(repeating: T.init(), count: nbl*nbc)
+      self.data = Array(repeating: 0.0, count: nbl*nbc)
       self.nbc = nbc
       self.nbl = nbl
    }
    
    public init(nbl: Int)
    {
-      self.data = Array(repeating: T.init(), count: nbl*nbl)
+      self.data = Array(repeating: 0.0, count: nbl*nbl)
       self.nbl = nbl
       self.nbc = nbl
    }
@@ -123,35 +121,18 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
       {
          for c in 0...nbc-1
          {
-            let element: T = data[c*nbl + l]
-            //on envisage 2 traitements ≠ selon le type de T (Double ou Complexe)
-            if let double = element as? Double // si T : Double
+            let element = data[l*nbc + c]
+            if element == 0.0
             {
-               if double == 0.0
-               {
-                  result += "0.0 \t"
-               }
-               else if abs(double) < 1.0e-10
-               {
-                  result += " "+epsilonCar+" \t"
-               } else
-               {
-                  result += String(format: "%.3f", double)+"\t"
-               }
+               result += "0.0 \t"
             }
-            if let complexe = element as? Complexe
+            else if abs(element) < 1.0e-10
             {
-               if complexe == Complexe.init()
-               {
-                  result += "0.0 \t"
-               }
-               else if complexe.mod < 1.0e-10
-               {
-                  result += " "+epsilonCar+" \t"
-               } else
-               {
-                  result += String(form: "%.3f", complexe)+"\t"
-               }
+               result += " "+epsilonCar+" \t"
+            } else
+            {
+               //result += "\(round(element*100)/100)\t"
+               result += String(format: "%.3f", element)+"\t"
             }
          }
          result.removeLast()
@@ -171,13 +152,13 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
    /*********************************************************
     Implémente la notion d'indice (subscript) pour "\(Matrice)"
     *********************************************************/
-   public subscript(_ x: Int,_ y: Int) -> T
+   public subscript(_ x: Int,_ y: Int) -> Double
    {
       get {
-         return self.data[y*self.nbl + x]
+         return self.data[x*self.nbc + y]
       }
       set {
-         self.data[y*self.nbl + x] = newValue
+         self.data[x*self.nbc + y] = newValue
       }
    }
    
@@ -188,13 +169,13 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
    /*********************************************************/
    public static postfix func °(m: Matrice) -> Matrice
    {
-      var data: [T] = []
+      var data: [Double] = []
       
-      for i in 0...m.nbl-1
+      for i in 0...m.nbc-1
       {
-         for j in 0...m.nbc-1
+         for j in 0...m.nbl-1
          {
-            data.append(m[i,j])
+            data.append(m[j,i])
          }
       }
       
@@ -213,12 +194,12 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
          return nil
       } else
       {
-         var data: [T] = []
-         for i in 0...rhs.nbc-1
+         var data: [Double] = []
+         for i in 0...lhs.nbl-1
          {
-            for j in 0...lhs.nbl-1
+            for j in 0...rhs.nbc-1
             {
-               data.append((lhs.ligne(j)*rhs.colonne(i))!)
+               data.append((lhs.ligne(i)*rhs.colonne(j))!)
             }
          }
          return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
@@ -228,9 +209,9 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
    /*********************************************************
     Implémente le "*" d'un scalaire et d'une Matrice
     *********************************************************/
-   public static func *(lhs: T,rhs: Matrice) -> Matrice?
+   public static func *(lhs: Double,rhs: Matrice) -> Matrice?
    {
-      var data: [T] = []
+      var data: [Double] = []
       for elem in rhs.data
       {
          data.append(lhs*elem)
@@ -242,9 +223,9 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
     TODO : gérer diviseur = 0.0
     (sans doute peux mieux faire avec func generic)
     *********************************************************/
-   public static func /(lhs: Matrice, rhs: T) -> Matrice?
+   public static func /(lhs: Matrice, rhs: Double) -> Matrice?
    {
-      var data: [T] = []
+      var data: [Double] = []
       for elem in lhs.data
       {
          data.append(elem/rhs)
@@ -255,7 +236,7 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
     Implémente le "/" d'une Matrice et d'un scalaire (Int)
     TODO : gérer diviseur = 0.0
     (sans doute peux mieux faire avec func generic)
-    ********************************************************
+    *********************************************************/
    public static func /(lhs: Matrice, rhs: Int) -> Matrice?
    {
       var data: [Double] = []
@@ -265,7 +246,7 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
       }
       return Matrice(data,nbl: lhs.nbl,nbc: lhs.nbc)
    }
-    */
+
 
    /*********************************************************/
    /// Fonction qui retourne une ligne, sous forme d'un Vecteur,
@@ -275,16 +256,9 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
    /// - parameters:
    ///   - ind: : Indice de la ligne à retourner 0 ≤ .. < nbl
    /*********************************************************/
-   public func ligne(_ ind: Int) -> Vecteur<T>
+   public func ligne(_ ind: Int) -> Vecteur
    {
-      var tempArray: [T] = []
-      
-      for i in stride(from: ind, to: ind+(self.nbl)*(self.nbc), by: self.nbl)
-      {
-         tempArray.append(self.data[i])
-      }
-      return Vecteur(tempArray).transpose()
-
+      return (Vecteur(Array(self.data[ind*self.nbc...(ind+1)*self.nbc - 1]))).transpose()
    }
    
    /*********************************************************/
@@ -295,9 +269,15 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
    /// - parameters:
    ///   - ind: : Indice de la ligne à retourner 0 ≤ .. < nbc
    /*********************************************************/
-   public func colonne(_ ind: Int) -> Vecteur<T>
+   public func colonne(_ ind: Int) -> Vecteur
    {
-      return (Vecteur(Array(self.data[ind*self.nbc...(ind+1)*self.nbc - 1])))
+      var tempArray: [Double] = []
+      
+      for i in stride(from: ind, to: ind+(self.nbl)*self.nbc, by: self.nbc)
+      {
+         tempArray.append(self.data[i])
+      }
+      return Vecteur(tempArray)
    }
    
    /*******************************************************************/
@@ -306,11 +286,11 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
    /********************************************************************/
    public func eye() -> Matrice
    {
-      let zeros = Array(repeating: T.init(), count: self.nbl*self.nbc)
+      let zeros = Array(repeating: 0.0, count: self.nbl*self.nbc)
       let I = Matrice(zeros,nbl: self.nbl, nbc: self.nbc)
       for i in 0...self.nbc-1
       {
-         I[i,i] = T.init(1.0)
+         I[i,i] = 1.0
       }
       return I
    }
@@ -318,8 +298,7 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
    /*******************************************************************/
    /// Retourne la matrice "stochastique" associée :
    /// somme des éléments de chaque lignes (tous≥0) = 1
-   /// TODO: à adapter au fait que cette fonction n'est valable que pour T = Double
-   /*******************************************************************
+   /********************************************************************/
    public func stochastique() -> Matrice?
    {
       let result = Matrice(self)
@@ -343,7 +322,6 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
       }
       return result
    }
-   */
    
    /*******************************************************************/
    /// Fonction qui retourne une Matrice trangulaire sup. "équivalente"
@@ -352,9 +330,7 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
    /// Fonction utilisée pour l'inversion par pivot de Gauss
    ///
    /// TODO: Gérer les erreurs d'indice
-   ///
-   /// En principe : plus utile !?!
-   /******************************************************************
+   /*******************************************************************/
    public func triangSup(_ A: Matrice) -> Matrice
    {
       let B: Matrice = Matrice(A)
@@ -388,7 +364,94 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
       }
       return B
    }
-   */
+
+   
+   /*******************************************************************/
+   /// Fonction qui retourne l'inverse d'une Matrice carrée
+   ///
+   /// Pour l'instant :
+   ///
+   ///      let A = Matrice([8.0,1,6,3,5,7,4,9,2],nbl: 3,nbc: 3)
+   ///      let B = A.inv()
+   ///
+   /// TODO: Gérer les erreurs d'indice
+   /*******************************************************************/
+   public func inv() -> Matrice
+   {
+      let A: Matrice = self
+      let B: Matrice = Matrice(A)
+      let I: Matrice = A.eye()
+      let n = A.nbc
+      
+      //print("I=\n\(I)")
+      
+      // On triangularise la matrice
+      for j in 0...n-2
+      {
+         // On trouve i entre j et n-1 tel que |A(i,j)| soit maximal
+         var indTrouve = j
+         var absAijCourant: Double = abs(A[indTrouve,j] )
+         
+         for i in j+1...n-1
+         {
+            if abs(A[i,j]) > absAijCourant
+            {
+               indTrouve = i
+               absAijCourant = abs(A[i,j])
+            }
+         }
+         // On échange Ligne(indTrouve) et Ligne(j)
+         let tempoB = B.data[indTrouve*n...(indTrouve+1)*n-1]
+         B.data[indTrouve*n...(indTrouve+1)*n-1] = B.data[j*n...(j+1)*n-1]
+         B.data[j*n...(j+1)*n-1] = tempoB
+         let tempoI = I.data[indTrouve*n...(indTrouve+1)*n-1]
+         I.data[indTrouve*n...(indTrouve+1)*n-1] = I.data[j*n...(j+1)*n-1]
+         I.data[j*n...(j+1)*n-1] = tempoI
+         
+         // on fait apparaitre les "0" sous la diagonale
+         for i in j+1...n-1
+         {
+            let coef = B[i,j]/B[j,j]
+            var ligneTempo = B.ligne(i) - coef * B.ligne(j)
+            B.data[i*n...(i+1)*n-1] = (ligneTempo?.data[0...n-1])!
+            ligneTempo = I.ligne(i) - coef * I.ligne(j)
+            I.data[i*n...(i+1)*n-1] = (ligneTempo?.data[0...n-1])!
+         }
+      }
+      
+      //print("I=\n\(I)")
+      
+      // On diagonalise la matrice
+      for jj in 0...n-2
+      {
+         let j = -jj+n-1
+         for ii in 0...j-1
+         {
+            let i = -ii+j-1
+            let coef = B[i,j]/B[j,j]
+            var ligneTempo = B.ligne(i) - coef * B.ligne(j)
+            B.data[i*n...(i+1)*n-1] = (ligneTempo?.data[0...n-1])!
+            ligneTempo = I.ligne(i) - coef * I.ligne(j)
+            I.data[i*n...(i+1)*n-1] = (ligneTempo?.data[0...n-1])!
+         }
+      }
+      
+      //print("B=\n\(B)")
+      //print("I=\n\(I)")
+      
+      // On fait apparaitre des "1" sur la diagonale de B
+      for i in 0...n-1
+      {
+         let coef = 1/B[i,i]
+         var ligneTempo = coef*B.ligne(i)
+         B.data[i*n...(i+1)*n-1] = (ligneTempo.data[0...n-1])
+         ligneTempo = coef*I.ligne(i)
+         I.data[i*n...(i+1)*n-1] = (ligneTempo.data[0...n-1])
+      }
+      return I
+   }
+
+   
 
 }
 /*=========================================================================*/
@@ -399,10 +462,10 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
 /*********************************************************/
 /// Retourne une matrice diagonale à partir d'un Vecteur
 /*********************************************************/
-public func diag<T: TypeArithmetique> (v: Vecteur<T>) -> Matrice<T>
+public func diag(v: Vecteur) -> Matrice
 {
    let nbElem = max(v.nbl,v.nbc)
-   let result: Matrice<T> = Matrice(nbl: nbElem, nbc: nbElem)
+   let result = Matrice(nbl: nbElem, nbc: nbElem)
    for i in 0...nbElem-1
    {
       result[i,i]  = v[i]
@@ -415,10 +478,10 @@ public func diag<T: TypeArithmetique> (v: Vecteur<T>) -> Matrice<T>
 /// "nbc" colonnes à partir d'un Vecteur
 /// à faire : vérifier compatibilité des nombres
 /*********************************************************/
-public func diag<T: TypeArithmetique>(v: Vecteur<T>, nl: Int, nc: Int) -> Matrice<T>
+public func diag(v: Vecteur, nl: Int, nc: Int) -> Matrice
 {
    let nbElem = max(v.nbl,v.nbc)
-   let result: Matrice<T> = Matrice(nbl: nl, nbc: nc)
+   let result = Matrice(nbl: nl, nbc: nc)
    for i in 0...nbElem-1
    {
       result[i,i]  = v[i]
@@ -426,6 +489,22 @@ public func diag<T: TypeArithmetique>(v: Vecteur<T>, nl: Int, nc: Int) -> Matric
    return result
 }
 
+
+/*******************************************************************/
+/// Fonction qui retourne l'inverse d'une Matrice carrée
+///
+/// Pour l'instant :
+///
+///      let A = Matrice([8.0,1,6,3,5,7,4,9,2],nbl: 3,nbc: 3)
+///      let B = inv(A)
+///
+/// TODO: Gérer les erreurs d'indice
+/*******************************************************************/
+
+public func inv(_ x: Matrice) -> Matrice
+{
+   return x.inv()
+}
 
 
 /*******************************************************************/
@@ -437,9 +516,8 @@ public func diag<T: TypeArithmetique>(v: Vecteur<T>, nl: Int, nc: Int) -> Matric
 ///      let B = invert(A)
 ///
 /// TODO: Gérer les erreurs d'indice
-/// TODO: Gérer les matrices non inversibles
 /*******************************************************************/
-public func inv(_ x: Matrice<Double>) -> Matrice<Double>
+public func invert(_ x: Matrice) -> Matrice
 {
    
    let nbl = x.nbl
@@ -479,14 +557,14 @@ public func inv(_ x: Matrice<Double>) -> Matrice<Double>
 /// Rem: Attention avec Lapack les éléments d'une matrice sont lus
 /// colonne par colonne !!
 /*******************************************************************/
-public func svd(_ x: Matrice<Double>) -> (U: Matrice<Double>, D: Matrice<Double>, V: Matrice<Double>)
+public func svd(_ x: Matrice) -> (U: Matrice, D: Matrice, V: Matrice)
 {
    let nbl = x.nbl
    let nbc = x.nbc
    
-   let resU: Matrice<Double>
-   let resD: Matrice<Double>
-   let resV: Matrice<Double>
+   let resU: Matrice
+   let resD: Matrice
+   let resV: Matrice
 
 
    var singleChar = "G"
@@ -501,7 +579,7 @@ public func svd(_ x: Matrice<Double>) -> (U: Matrice<Double>, D: Matrice<Double>
    //let JOBV = "V"
    var M = __CLPK_integer(nbl)
    var N = __CLPK_integer(nbc)
-   var A: [Double] = (x).data      // Au retour : colonnes orthogonales de la matrice U
+   var A: [Double] = (x°).data      // Au retour : colonnes orthogonalse de la matrice U
    var LDA = __CLPK_integer(nbl)
    var SVA = [Double](repeating: 0.0, count: Int(N))  // Les valeurs singulières de A
    var MV : __CLPK_integer = 0
@@ -516,11 +594,25 @@ public func svd(_ x: Matrice<Double>) -> (U: Matrice<Double>, D: Matrice<Double>
    var INFO : __CLPK_integer = 0
    
    dgesvj_(&JOBA,&JOBU,&JOBV,&M,&N,&A,&LDA,&SVA,&MV,&V,&LDV,&WORK,&LWORK,&INFO)
-      
-   resU = Matrice(A,nbl: nbl,nbc: nbc)
-   resD = diag(v: Vecteur(SVA))
-   resV = Matrice(V,nbl: nbc,nbc: nbc)
    
+   print("A : \n\(A)")
+   print("SVA : \n\(SVA)")
+   print("V : \n\(V)")
+   
+   print("nbl = \n\(nbl)")
+   
+   resU = Matrice(A,nbl: nbl,nbc: nbc,rangement: "c")
+   resD = diag(v: Vecteur(SVA))
+   resV = Matrice(V,nbl: nbc,nbc: nbc,rangement: "c")
+   
+   print("resU.dim() :\n\(resU.dim())")
+   print("resD.dim() :\n\(resD.dim())")
+   print("resV.dim() :\n\(resV.dim())")
+   /*
+   print("resU : \n\(resU)")
+   print("resD : \n\(resD)")
+   print("resV : \n\(resV)")
+   */
    return(resU,resD,resV)
 }
 

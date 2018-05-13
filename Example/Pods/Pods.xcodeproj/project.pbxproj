@@ -20,6 +20,7 @@
 		D573AE907F7FC85EC2CCE9D4FAA9A239 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF428FC7C7A6555B2B02D8E238C8D8F2 /* Cocoa.framework */; };
 		DBCA3BB932B0528DB7B781C9948A5EF5 /* Pods-YMMathLib_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3493C2F6BF36FA07121E80029E629C84 /* Pods-YMMathLib_Example-dummy.m */; };
 		EF34D5BB208B4472002FA721 /* Vecteur.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF34D5B9208B4414002FA721 /* Vecteur.swift */; };
+		EF967DA220A8A40900AA2063 /* Complexe.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF967D9E20A85D3C00AA2063 /* Complexe.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		EF34D5B6208B427A002FA721 /* Creating CocoaPod Tuto.pages */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Creating CocoaPod Tuto.pages"; sourceTree = "<group>"; };
 		EF34D5B9208B4414002FA721 /* Vecteur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vecteur.swift; path = YMMathLib/Classes/Vecteur.swift; sourceTree = "<group>"; };
 		EF6F360D208A4B6900D13876 /* A Faire.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "A Faire.rtf"; sourceTree = "<group>"; };
+		EF967D9E20A85D3C00AA2063 /* Complexe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Complexe.swift; sourceTree = "<group>"; };
 		F117F2CF18AA1BBB50E27AD2C78F0409 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6A174A0DEC455884A347104BA083934 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FBBD22F9CF7CDA228B5D9E7C11B0A73B /* Pods-YMMathLib_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-YMMathLib_Example.modulemap"; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 		2A56FDDD4A78436FD5FE219180734177 /* YMMathLib */ = {
 			isa = PBXGroup;
 			children = (
+				EF967D9E20A85D3C00AA2063 /* Complexe.swift */,
 				EF34D5B9208B4414002FA721 /* Vecteur.swift */,
 				8D8F8BA46CBB40AFB3B78EBC3DECC19F /* Matrice.swift */,
 				3C239B9B1E2D8553DD5EC83D4EC9B1D1 /* MyMathLib.swift */,
@@ -379,6 +382,7 @@
 			files = (
 				EF34D5BB208B4472002FA721 /* Vecteur.swift in Sources */,
 				38320304FA5F7C7D2ED6A97A8D98A3EE /* Matrice.swift in Sources */,
+				EF967DA220A8A40900AA2063 /* Complexe.swift in Sources */,
 				161109C8374F7DF3B11A15DC065D645E /* MyMathLib.swift in Sources */,
 				494DBC9495A5797044AB106FB25C405D /* ReplaceMe.swift in Sources */,
 				2F3F0ABFA7E2F4CAE7C232610EAF2A22 /* YMMathLib-dummy.m in Sources */,
