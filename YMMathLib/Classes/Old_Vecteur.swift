@@ -10,15 +10,14 @@ import Foundation
 postfix operator °
 
 
-public class Vecteur<T: TypeArithmetique>: Matrice<T>
+public class Vecteur<T: TypeArithmetique>: CustomStringConvertible, Equatable
 {
    // T est de type Double ou Complexe
    // Tableau qui contient les composantes du vecteur
    // TODO : rendre data non public en créant public func array() -> [Double]
-   //public var data: [T] = []
+   public var data: [T] = []
    // Dimension du vecteur. Par défaut vecteur colonne, nbc=1
-   //var (nbl, nbc) = (0,1)
-
+   var (nbl, nbc) = (0,1)
    
    /// Initialisation du Vecteur à partir d'un tableau de Double ou Complexe.
    ///
@@ -27,10 +26,12 @@ public class Vecteur<T: TypeArithmetique>: Matrice<T>
    ///     - datas: : Le tableau de Double ou Complexe.
    public init(_ datas: [T])
    {
-      let nbli = datas.count
-      super.init(datas, nbl: nbli, nbc: 1)
+      for element in datas
+      {
+         self.data.append(element)
+      }
       self.nbc = 1
-      self.nbl = nbli
+      self.nbl = data.count
    }
    
    
@@ -41,7 +42,9 @@ public class Vecteur<T: TypeArithmetique>: Matrice<T>
 
    public init(_ vec: Vecteur)
    {
-      super.init(vec.data, nbl: vec.nbl, nbc: 1)
+      self.data = vec.data
+      self.nbc = vec.nbc
+      self.nbl = vec.nbl
    }
    
    /**
@@ -62,7 +65,7 @@ public class Vecteur<T: TypeArithmetique>: Matrice<T>
    /**
     Implémente la conversion en String pour "\(Vecteur)"
     */
-   override public var description: String
+   public var description: String
    {
       var result = ""
       if nbc == 1
@@ -217,7 +220,7 @@ public class Vecteur<T: TypeArithmetique>: Matrice<T>
  *********************************************************/
 public func *<T: TypeArithmetique>(lhs: Vecteur<T>, rhs: Vecteur<T>) -> Any?
 {
-   print(" on passe dans le * de 2 Vecteur")
+   
    if (lhs.nbl == 1 && lhs.nbc == rhs.nbl && rhs.nbc == 1)  // produit scalaire
    {
       if lhs.nbc > 0

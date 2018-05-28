@@ -20,7 +20,7 @@ postfix operator °
 ///
 /// TODO: Lister les opérations
 /*********************************************************/
-public class Matrice<T: TypeArithmetique>: CustomStringConvertible
+public class Matrice<T: TypeArithmetique>: CustomStringConvertible, Equatable
 {
    // Tableau qui contient les composantes du vecteur
    //  ATTENTION : lues colonne par colonne !!
@@ -160,6 +160,22 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
       return result
    }
 
+   /*********************************************************
+    Implémente le "==" de 2 Matrice
+    (pour se conformer au protocole Equatable)
+    TODO : Traiter cas de vecteurs "vides"
+    *********************************************************/
+   public static func == (lhs: Matrice, rhs: Matrice) -> Bool
+   {
+      var result = (lhs.nbl == rhs.nbl) && (lhs.nbc == rhs.nbc)
+      
+      for i in 0..<lhs.data.count
+      {
+         result = result && (lhs.data[i] == rhs.data[i])
+      }
+      return result
+   }
+
    /*********************************************************/
    /// Retourne la dim. de la matrice sous forme de String
    /*********************************************************/
@@ -273,7 +289,7 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
    /*********************************************************/
    public func colonne(_ ind: Int) -> Vecteur<T>
    {
-      return (Vecteur(Array(self.data[ind*self.nbc...(ind+1)*self.nbc - 1])))
+      return (Vecteur(Array(self.data[ind*self.nbl...(ind+1)*self.nbl - 1])))
    }
    
    /*******************************************************************/
@@ -422,7 +438,7 @@ public func *(lhs: Matrice<Complexe>, rhs: Matrice<Complexe>) -> Matrice<Complex
 {
    if (lhs.nbc != rhs.nbl)
    {
-      print("Dimensions incompatibles !")
+      print("Dimensions incompatibles ! dans F1")
       return nil
    }
    else  // on a le bonnes dimensions
@@ -432,7 +448,12 @@ public func *(lhs: Matrice<Complexe>, rhs: Matrice<Complexe>) -> Matrice<Complex
       {
          for j in 0...lhs.nbl-1
          {
-            data.append((lhs.ligne(j) ) * (rhs.colonne(i) ) as! Complexe)
+            var tempo = Complexe(0.0)
+            for k in 0...lhs.nbc-1
+            {
+               tempo += rhs[j,k]*lhs[k,i]
+            }
+            data.append(tempo)
          }
       }
       return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
@@ -456,7 +477,12 @@ public func *(lhs: Matrice<Double>, rhs: Matrice<Double>) -> Matrice<Double>?
       {
          for j in 0...lhs.nbl-1
          {
-            data.append((lhs.ligne(j) ) * (rhs.colonne(i) ) as! Double)
+            var tempo = 0.0
+            for k in 0...lhs.nbc-1
+            {
+               tempo += rhs[j,k]*lhs[k,i]
+            }
+            data.append(tempo)
          }
       }
       return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
@@ -470,7 +496,7 @@ public func *(lhs: Matrice<Double>, rhs: Matrice<Complexe>) -> Matrice<Complexe>
 {
    if (lhs.nbc != rhs.nbl)
    {
-      print("Dimensions incompatibles !")
+      print("Dimensions incompatibles !dans F3")
       return nil
    }
    else  // on a le bonnes dimensions
@@ -480,7 +506,12 @@ public func *(lhs: Matrice<Double>, rhs: Matrice<Complexe>) -> Matrice<Complexe>
       {
          for j in 0...lhs.nbl-1
          {
-            data.append((lhs.ligne(j) ) * (rhs.colonne(i) ) as! Complexe)
+            var tempo = Complexe(0.0)
+            for k in 0...lhs.nbc-1
+            {
+               tempo += rhs[j,k]*lhs[k,i]
+            }
+            data.append(tempo)
          }
       }
       return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
@@ -494,7 +525,7 @@ public func *(lhs: Matrice<Complexe>, rhs: Matrice<Double>) -> Matrice<Complexe>
 {
    if (lhs.nbc != rhs.nbl)
    {
-      print("Dimensions incompatibles !")
+      print("Dimensions incompatibles !dans F4")
       return nil
    }
    else  // on a le bonnes dimensions
@@ -504,7 +535,12 @@ public func *(lhs: Matrice<Complexe>, rhs: Matrice<Double>) -> Matrice<Complexe>
       {
          for j in 0...lhs.nbl-1
          {
-            data.append((lhs.ligne(j) ) * (rhs.colonne(i) ) as! Complexe)
+            var tempo = Complexe(0.0)
+            for k in 0...lhs.nbc-1
+            {
+               tempo += rhs[j,k]*lhs[k,i]
+            }
+            data.append(tempo)
          }
       }
       return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
