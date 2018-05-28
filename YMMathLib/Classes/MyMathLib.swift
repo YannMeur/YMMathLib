@@ -8,7 +8,7 @@ let epsilonCar = "\u{03B5}"
 postfix operator °
 
 
-/*============================================================*/
+/*============================================================
 /// protocol TypeArithmetique
 /// doit implémenter :
 /// - la somme de 2 élements
@@ -36,7 +36,7 @@ public protocol TypeArithmetique: Equatable
    //static func == (_: Self, _: Self)->Bool
    //static func abs (_: Self)->Double
 }
-
+*/
 
 /*===========================================================================
  Extension de String pour les sous-chaines
@@ -238,7 +238,7 @@ public extension Int
    /// (maintenant 1.0 exclu)
    public static var random: Double
    {
-      var result = Double(arc4random()) / 0xFFFFFFFF
+      var result = Double(arc4random() / 0xFFFFFFFF )
       while result == 1.0
       {
          result = Double.random
@@ -344,4 +344,7 @@ public func typeDe<T>(_ x: T)
    
 
 }
+
+
+
 

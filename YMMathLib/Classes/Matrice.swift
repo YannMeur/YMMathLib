@@ -15,7 +15,7 @@ import Accelerate
 postfix operator °
 
 /*********************************************************/
-/// Implémente la notion mathématique de Matrice (de Double)
+/// Implémente la notion mathématique de Matrice (de Double ou Complexe)
 /// avec les principales opérations classiques :
 ///
 /// TODO: Lister les opérations
@@ -24,7 +24,7 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
 {
    // Tableau qui contient les composantes du vecteur
    //  ATTENTION : lues colonne par colonne !!
-   var data: [T] = []
+   public var data: [T] = []
    // Dimension du vecteur.
    var (nbl, nbc) = (0,0)
    
@@ -136,7 +136,7 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
                   result += " "+epsilonCar+" \t"
                } else
                {
-                  result += String(format: "%.3f", double)+"\t"
+                  result += String(format: "%.2f", double)+"\t"
                }
             }
             if let complexe = element as? Complexe
@@ -150,7 +150,7 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
                   result += " "+epsilonCar+" \t"
                } else
                {
-                  result += String(form: "%.3f", complexe)+"\t"
+                  result += String(form: "%.2f", complexe)+"\t"
                }
             }
          }
@@ -197,33 +197,9 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
             data.append(m[i,j])
          }
       }
-      
       return Matrice(data,nbl: m.nbc,nbc: m.nbl)
    }
    
-   /*********************************************************
-    Implémente le "*" de 2 Matrices
-    TODO : vérifier compatibilité des dimensions
-    *********************************************************/
-   public static func *(lhs: Matrice, rhs: Matrice) -> Matrice?
-   {
-      if (lhs.nbc != rhs.nbl)
-      {
-         print("Dimensions incompatibles !")
-         return nil
-      } else
-      {
-         var data: [T] = []
-         for i in 0...rhs.nbc-1
-         {
-            for j in 0...lhs.nbl-1
-            {
-               data.append((lhs.ligne(j)*rhs.colonne(i))!)
-            }
-         }
-         return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
-      }
-   }
    
    /*********************************************************
     Implémente le "*" d'un scalaire et d'une Matrice
@@ -320,7 +296,7 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
    /// somme des éléments de chaque lignes (tous≥0) = 1
    /// TODO: à adapter au fait que cette fonction n'est valable que pour T = Double
    /*******************************************************************
-   public func stochastique() -> Matrice?
+    public func stochastique<T:Double>() -> Matrice<T>
    {
       let result = Matrice(self)
       for x in 0...self.nbl-1
@@ -343,7 +319,7 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
       }
       return result
    }
-   */
+ */
    
    /*******************************************************************/
    /// Fonction qui retourne une Matrice trangulaire sup. "équivalente"
@@ -396,6 +372,149 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible
 /*=========================================================================*/
 
 
+/*=========================================================================*/
+///  Extension de Matrice pour pouvoir définir une méthode applicable
+///   uniquement aux Double
+/*=========================================================================*/
+extension Matrice where T==Double
+{
+   /*******************************************************************/
+   /// Retourne la matrice "stochastique" associée :
+   /// somme des éléments de chaque lignes (tous≥0) = 1
+   ///
+   /// TODO: à adapter au fait que cette fonction n'est valable que pour T = Double
+   /********************************************************************/
+    public func stochastique() -> Matrice
+    {
+    let result = Matrice(self)
+    for x in 0...self.nbl-1
+    {
+      let coef = (self.ligne(x)).somme()
+      if coef != 0.0
+      {
+         for y in 0...self.nbc-1
+         {
+            result[x,y] /= coef
+         }
+      }
+    /*
+    else
+    {
+    print("Pb : somme d'une ligne = 0")
+    return nil
+    }
+    */
+    }
+    return result
+    }
+}
+/*=========================================================================*/
+///  Fin Extension de Matrice
+/*=========================================================================*/
+
+
+
+/*********************************************************
+ Implémente le "*" de 2 Matrices Complexe
+ TODO : vérifier compatibilité des dimensions
+ *********************************************************/
+public func *(lhs: Matrice<Complexe>, rhs: Matrice<Complexe>) -> Matrice<Complexe>?
+{
+   if (lhs.nbc != rhs.nbl)
+   {
+      print("Dimensions incompatibles !")
+      return nil
+   }
+   else  // on a le bonnes dimensions
+   {
+      var data: [Complexe] = []
+      for i in 0...rhs.nbc-1
+      {
+         for j in 0...lhs.nbl-1
+         {
+            data.append((lhs.ligne(j) ) * (rhs.colonne(i) ) as! Complexe)
+         }
+      }
+      return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
+   }
+}
+/*********************************************************
+ Implémente le "*" de 2 Matrices Double
+ TODO : vérifier compatibilité des dimensions
+ *********************************************************/
+public func *(lhs: Matrice<Double>, rhs: Matrice<Double>) -> Matrice<Double>?
+{
+   if (lhs.nbc != rhs.nbl)
+   {
+      print("Dimensions incompatibles !")
+      return nil
+   }
+   else  // on a le bonnes dimensions
+   {
+      var data: [Double] = []
+      for i in 0...rhs.nbc-1
+      {
+         for j in 0...lhs.nbl-1
+         {
+            data.append((lhs.ligne(j) ) * (rhs.colonne(i) ) as! Double)
+         }
+      }
+      return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
+   }
+}
+/*********************************************************
+ Implémente le "*" d'1 Matrice Double et d'1 Matrice Complexe
+ TODO : vérifier compatibilité des dimensions
+ *********************************************************/
+public func *(lhs: Matrice<Double>, rhs: Matrice<Complexe>) -> Matrice<Complexe>?
+{
+   if (lhs.nbc != rhs.nbl)
+   {
+      print("Dimensions incompatibles !")
+      return nil
+   }
+   else  // on a le bonnes dimensions
+   {
+      var data: [Complexe] = []
+      for i in 0...rhs.nbc-1
+      {
+         for j in 0...lhs.nbl-1
+         {
+            data.append((lhs.ligne(j) ) * (rhs.colonne(i) ) as! Complexe)
+         }
+      }
+      return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
+   }
+}
+/*********************************************************
+ Implémente le "*" d'1 Matrice Complexe et d'1 Matrice Double
+ TODO : vérifier compatibilité des dimensions
+ *********************************************************/
+public func *(lhs: Matrice<Complexe>, rhs: Matrice<Double>) -> Matrice<Complexe>?
+{
+   if (lhs.nbc != rhs.nbl)
+   {
+      print("Dimensions incompatibles !")
+      return nil
+   }
+   else  // on a le bonnes dimensions
+   {
+      var data: [Complexe] = []
+      for i in 0...rhs.nbc-1
+      {
+         for j in 0...lhs.nbl-1
+         {
+            data.append((lhs.ligne(j) ) * (rhs.colonne(i) ) as! Complexe)
+         }
+      }
+      return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
+   }
+}
+
+
+
+
+
 /*********************************************************/
 /// Retourne une matrice diagonale à partir d'un Vecteur
 /*********************************************************/
@@ -429,9 +548,11 @@ public func diag<T: TypeArithmetique>(v: Vecteur<T>, nl: Int, nc: Int) -> Matric
 
 
 /*******************************************************************/
-/// Fonction qui retourne l'inverse d'une Matrice carrée
+/// Fonction qui retourne l'inverse d'une Matrice carrée de Double
 ///
 ///Utilise Lapack
+///
+/// https://stackoverflow.com/questions/26811843/matrix-inversion-in-swift-using-accelerate-framework/26812159#26812159
 ///
 ///      let A = Matrice([8.0,1,6,3,5,7,4,9,2],nbl: 3,nbc: 3)
 ///      let B = invert(A)
@@ -441,7 +562,6 @@ public func diag<T: TypeArithmetique>(v: Vecteur<T>, nl: Int, nc: Int) -> Matric
 /*******************************************************************/
 public func inv(_ x: Matrice<Double>) -> Matrice<Double>
 {
-   
    let nbl = x.nbl
    let nbc = x.nbc
    
@@ -461,12 +581,59 @@ public func inv(_ x: Matrice<Double>) -> Matrice<Double>
 }
 
 /*******************************************************************/
-/// Décomposition en valeurs singulières,
-/// retourne un tuple
+/// Fonction qui retourne l'inverse d'une Matrice carrée de Complexe
+///
+///Utilise Lapack
+///
+///      let A = Matrice([8.0,1,6,3,5,7,4,9,2],nbl: 3,nbc: 3)
+///      let B = invert(A)
+///
+/// TODO: Gérer les erreurs d'indice
+/// TODO: Gérer les matrices non inversibles
+/*******************************************************************/
+public func inv(_ x: Matrice<Complexe>) -> Matrice<Complexe>
+{
+   let nbl = x.nbl
+   let nbc = x.nbc
+   
+   var inMatrix: [__CLPK_doublecomplex] = [__CLPK_doublecomplex](repeating: __CLPK_doublecomplex(r: 0.0,i: 0.0), count: nbl*nbc)
+   var index:Int = 0
+   for _ in 0...nbc-1
+   {
+      for _ in 0...nbl-1
+      {
+         inMatrix[index] = __CLPK_doublecomplex(r: x.data[index].re,i: x.data[index].im)
+         index += 1
+      }
+   }
+   
+   var N = __CLPK_integer(sqrt(Double(inMatrix.count)))
+   var pivots = [__CLPK_integer](repeating: 0, count: Int(N))
+   var workspace = [__CLPK_doublecomplex](repeating: __CLPK_doublecomplex(r: 0.0,i: 0.0), count: Int(N))
+   var error : __CLPK_integer = 0
+   
+   withUnsafeMutablePointer(to: &N)
+   {
+      zgetrf_($0, $0, &inMatrix, $0, &pivots, &error)
+      zgetri_($0, &inMatrix, $0, &pivots, &workspace, $0, &error)
+  }
+   // au retour inMatrix est un [__CLPK_doublecomplex] qu'il faut transformer en [Complexe]
+   var newData: [Complexe] = x.data    // uniquement pour avoir bon type et bonnes dimensions
+   for index in 0...newData.count-1
+   {
+      newData[index] = Complexe(re: inMatrix[index].r,im: inMatrix[index].i)
+   }
+   let y = Matrice(newData,nbl: nbl,nbc: nbc)
+   return y
+}
+
+/*******************************************************************/
+/// Décomposition en valeurs singulières d'une Matrice<Double>,
+/// retourne un tuple : [U, D, V] (où D: Matrice diagonale)
 ///
 /// Utilise Lapack
 ///
-/// A = U * SIGMA * V^t
+/// A = U * D * V^t
 ///
 ///      let A = Matrice([8.0,1,6,3,5,7,4,9,2],nbl: 3,nbc: 3)
 ///      let Results = svd(A)
@@ -487,7 +654,6 @@ public func svd(_ x: Matrice<Double>) -> (U: Matrice<Double>, D: Matrice<Double>
    let resU: Matrice<Double>
    let resD: Matrice<Double>
    let resV: Matrice<Double>
-
 
    var singleChar = "G"
    var JOBA = Int8(UInt8(ascii: singleChar.unicodeScalars[singleChar.startIndex]))

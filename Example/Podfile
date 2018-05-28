@@ -1,3 +1,8 @@
+# Projet créé avec CocoaPods
+# voir : https://www.raywenderlich.com/156971/cocoapods-tutorial-swift-getting-started
+# ou https://code.tutsplus.com/tutorials/creating-your-first-cocoapod--cms-24332
+
+
 use_frameworks!
 
 target 'YMMathLib_Example' do

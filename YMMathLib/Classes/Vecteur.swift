@@ -19,11 +19,11 @@ public class Vecteur<T: TypeArithmetique>: CustomStringConvertible, Equatable
    // Dimension du vecteur. Par défaut vecteur colonne, nbc=1
    var (nbl, nbc) = (0,1)
    
-   /// Initialisation du Vecteur à partir d'un tableau de Double.
+   /// Initialisation du Vecteur à partir d'un tableau de Double ou Complexe.
    ///
    /// Par défaut le Vecteur est colonne (nbc=1)
    /// - parameters:
-   ///   - datas: : Le tableau de Double.
+   ///     - datas: : Le tableau de Double ou Complexe.
    public init(_ datas: [T])
    {
       for element in datas
@@ -92,7 +92,7 @@ public class Vecteur<T: TypeArithmetique>: CustomStringConvertible, Equatable
     (pour se conformer au protocole Equatable)
     TODO : Traiter cas de vecteurs "vides"
     *********************************************************/
-      public static func == (lhs: Vecteur, rhs: Vecteur) -> Bool
+   public static func == (lhs: Vecteur, rhs: Vecteur) -> Bool
    {
       var result = (lhs.nbl == rhs.nbl) && (lhs.nbc == rhs.nbc)
       
@@ -119,7 +119,7 @@ public class Vecteur<T: TypeArithmetique>: CustomStringConvertible, Equatable
          return result
       } else
       {
-         print("Dimensions incompatibes pour l'addition de 2 Vecteurs!")
+         print("Dimensions incompatibles pour l'addition de 2 Vecteurs!")
          return nil
       }
    }
@@ -140,40 +140,11 @@ public class Vecteur<T: TypeArithmetique>: CustomStringConvertible, Equatable
          return result
       } else
       {
-         print("Dimensions incompatibes pour l'addition de 2 Vecteurs!")
+         print("Dimensions incompatibles pour l'addition de 2 Vecteurs!")
          return nil
       }
    }
    
-   /*********************************************************
-    Implémente le "*" de 2 vecteurs
-    TODO : vérifier compatibilité des dimensions
-    *********************************************************/
-   public static func *(lhs: Vecteur, rhs: Vecteur) -> T?
-   {
-      
-      if (lhs.nbl == 1 && lhs.nbc == rhs.nbl && rhs.nbc == 1)
-      {
-         if lhs.nbc > 0
-         {
-            var result = lhs[0] * rhs[0]
-            for ind in 1...lhs.nbc-1
-            {
-               result = result + lhs[ind] * rhs[ind]
-               //ind += 1
-            }
-            return result
-         } else
-         {
-            print("Vecteurs vides !")
-            return nil
-         }
-      } else
-      {
-         print("Dimensions incompatibes pour * de 2 Vecteurs!")
-         return nil
-      }
-   }
    
    /*********************************************************
     Implémente le "*" d'1 Double et d'1 Vecteur
@@ -241,7 +212,167 @@ public class Vecteur<T: TypeArithmetique>: CustomStringConvertible, Equatable
    }
    
 }
-/*===================================================================*/
+/*===================FIN DEFINITION CLASS=============================================*/
+
+/*********************************************************
+ Implémente le "*" de 2 vecteurs (de même nature)
+ TODO : vérifier compatibilité des dimensions
+ *********************************************************/
+public func *<T: TypeArithmetique>(lhs: Vecteur<T>, rhs: Vecteur<T>) -> Any?
+{
+   
+   if (lhs.nbl == 1 && lhs.nbc == rhs.nbl && rhs.nbc == 1)  // produit scalaire
+   {
+      if lhs.nbc > 0
+      {
+         var result = lhs[0] * rhs[0]
+         for ind in 1...lhs.nbc-1
+         {
+            result = result + lhs[ind] * rhs[ind]
+         }
+         return result as T
+      } else
+      {
+         print("Vecteurs vides !")
+         return nil
+      }
+   }
+   else if (lhs.nbc == rhs.nbl)     // l'autre produit
+   {
+      if lhs.nbc > 0
+      {
+         var data: [T] = Array(repeating: T.init(), count: 0)
+         for c in 0...rhs.nbc-1
+         {
+            for l in 0...lhs.nbl-1
+            {
+               data.append(lhs[l]*rhs[c])
+            }
+         }
+         
+         print("data : \(data)")
+         
+         return Matrice(data, nbl: lhs.nbl, nbc: rhs.nbc)
+      } else
+      {
+         print("Vecteurs vides !")
+         return nil
+      }
+   }
+   else
+   {
+      print("Dimensions incompatibes pour * de 2 Vecteurs!")
+      return nil
+   }
+}
+
+/*********************************************************
+ Implémente le "*" de 2 vecteurs (de nature différente)
+ TODO : vérifier compatibilité des dimensions
+ *********************************************************/
+public func *(lhs: Vecteur<Double>, rhs: Vecteur<Complexe>) -> Any?
+{
+   
+   if (lhs.nbl == 1 && lhs.nbc == rhs.nbl && rhs.nbc == 1)  // produit scalaire
+   {
+      if lhs.nbc > 0
+      {
+         var result = lhs[0] * rhs[0]
+         for ind in 1...lhs.nbc-1
+         {
+            result = result + lhs[ind] * rhs[ind]
+         }
+         return result as Complexe
+      } else
+      {
+         print("Vecteurs vides !")
+         return nil
+      }
+   }
+   else if (lhs.nbc == rhs.nbl)     // l'autre produit
+   {
+      if lhs.nbc > 0
+      {
+         var data: [Complexe] = Array(repeating: Complexe.init(), count: 0)
+         for c in 0...rhs.nbc-1
+         {
+            for l in 0...lhs.nbl-1
+            {
+               data.append(lhs[l]*rhs[c])
+            }
+         }
+         
+         print("data : \(data)")
+         
+         return Matrice(data, nbl: lhs.nbl, nbc: rhs.nbc)
+      } else
+      {
+         print("Vecteurs vides !")
+         return nil
+      }
+   }
+   else
+   {
+      print("Dimensions incompatibes pour * de 2 Vecteurs!")
+      return nil
+   }
+}
+/*********************************************************
+ Implémente le "*" de 2 vecteurs (de nature différente)
+ TODO : vérifier compatibilité des dimensions
+ *********************************************************/
+public func *(lhs: Vecteur<Complexe>, rhs: Vecteur<Double>) -> Any?
+{
+   
+   if (lhs.nbl == 1 && lhs.nbc == rhs.nbl && rhs.nbc == 1)  // produit scalaire
+   {
+      if lhs.nbc > 0
+      {
+         var result = lhs[0] * rhs[0]
+         for ind in 1...lhs.nbc-1
+         {
+            result = result + lhs[ind] * rhs[ind]
+         }
+         return result as Complexe
+      } else
+      {
+         print("Vecteurs vides !")
+         return nil
+      }
+   }
+   else if (lhs.nbc == rhs.nbl)     // l'autre produit
+   {
+      if lhs.nbc > 0
+      {
+         var data: [Complexe] = Array(repeating: Complexe.init(), count: 0)
+         for c in 0...rhs.nbc-1
+         {
+            for l in 0...lhs.nbl-1
+            {
+               data.append(lhs[l]*rhs[c])
+            }
+         }
+         
+         print("data : \(data)")
+         
+         return Matrice(data, nbl: lhs.nbl, nbc: rhs.nbc)
+      } else
+      {
+         print("Vecteurs vides !")
+         return nil
+      }
+   }
+   else
+   {
+      print("Dimensions incompatibes pour * de 2 Vecteurs!")
+      return nil
+   }
+}
+
+
+
+
+
 
 /***********************************************************/
 /// Pour pouvoir manipuler des tableaux de (Int,Int)
