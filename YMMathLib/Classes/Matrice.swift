@@ -14,12 +14,16 @@ import Accelerate
 
 postfix operator °
 
-/*********************************************************/
-/// Implémente la notion mathématique de Matrice (de Double ou Complexe)
-/// avec les principales opérations classiques :
-///
-/// TODO: Lister les opérations
-/*********************************************************/
+/*********************************************************
+Implémente la notion mathématique de Matrice (de Double ou Complexe)
+avec les principales opérations classiques :
+ 
+  - \+  -  *  °(transposition)
+  - inv()
+  - svd()
+
+TODO:
+*********************************************************/
 public class Matrice<T: TypeArithmetique>: CustomStringConvertible, Equatable
 {
    // Tableau qui contient les composantes du vecteur
@@ -28,15 +32,14 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible, Equatable
    // Dimension du vecteur.
    var (nbl, nbc) = (0,0)
    
-   /********************************************************/
-   /// Initialise la Matrice
-   ///
-   /// - parameters:
-   ///   - datas: : Tableau (unidimensionnel) des T, de longueur
-   ///   nbl*nbc, rangés implicitement ligne par ligne
-   ///   - nbl: : Nombre de lignes
-   ///   - nbc: : Nombre de colonnes
-    /*********************************************************/
+   /**
+   Initialise la Matrice
+   
+   - parameter datas:  Tableau (unidimensionnel) des T, de longueur
+      nbl*nbc, rangés implicitement colonne par colonne
+   - parameter nbl:  Nombre de lignes
+   - parameter nbc:  Nombre de colonnes
+   */
    public init(_ datas: [T], nbl: Int, nbc: Int)
    {
       if datas.count == nbl*nbc
@@ -53,17 +56,16 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible, Equatable
       }
    }
  
-   /********************************************************/
-   /// Initialise la Matrice
-   ///
-   /// - parameters:
-   ///   - datas: : Tableau (unidimensionnel) des T, de longueur
-   ///   nbl*nbc, rangés implicitement ligne par ligne
-   ///   - nbl: : Nombre de lignes
-   ///   - nbc: : Nombre de colonnes
-   ///   - rangement: : si = "l" ou "L" => rangement ligne/ligne
-   ///                  sinon rangement par défaut (colonne/colonne)
-   /*********************************************************/
+   /**
+   Initialise la Matrice
+   
+   - parameter datas:  Tableau (unidimensionnel) des T, de longueur
+     nbl*nbc, rangés implicitement ligne par ligne
+   - parameter nbl: Nombre de lignes
+   - parameter nbc: Nombre de colonnes
+   - parameter rangement: si = "l" ou "L" => rangement ligne/ligne
+     sinon rangement par défaut (colonne/colonne)
+   */
    public init(_ datas: [T], nbl: Int, nbc: Int, rangement: String)
    {
       if datas.count == nbl*nbc
@@ -89,6 +91,11 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible, Equatable
       }
    }
 
+   /**
+    Fournit une copie d'une Matrice
+    
+    - parameter M: La Matrice à copier
+    */
    public init(_ M: Matrice)
    {
       self.data = M.data
@@ -96,13 +103,32 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible, Equatable
       self.nbl = M.nbl
    }
    
+   /**
+    Initialise une Matrice à 0.0
+    
+    Pour inférer le type :
+    
+        let A: Matrice<Complexe> = Matrice(nbl:3, nbc:2)
+
+    - parameter nbl: Nombre de lignes
+    - parameter nbc: Nombre de colonnes
+    */
    public init(nbl: Int, nbc: Int)
    {
       self.data = Array(repeating: T.init(), count: nbl*nbc)
       self.nbc = nbc
       self.nbl = nbl
    }
-   
+
+   /**
+    Initialise une Matrice carrée à 0.0
+    
+    Pour inférer le type :
+    
+         let A: Matrice<Complexe> = Matrice(nbl:3)
+    
+    - parameter nbl: Nombre de lignes (= nombre de colonnes)
+    */
    public init(nbl: Int)
    {
       self.data = Array(repeating: T.init(), count: nbl*nbl)
@@ -112,9 +138,9 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible, Equatable
    
    
    
-   /*********************************************************/
-   /// Implémente la conversion en String pour "\\(Matrice)"
-   /*********************************************************/
+   /**
+   Implémente la conversion en String pour "\(Matrice)"
+   */
    public var description: String
    {
       var result = ""
@@ -160,25 +186,74 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible, Equatable
       return result
    }
 
-   /*********************************************************
-    Implémente le "==" de 2 Matrice
+   /**
+    Implémente le "==" de 2 Matrice,
+    Egalité au sens strict ; comparaison terme à terme
     (pour se conformer au protocole Equatable)
+    
     TODO : Traiter cas de vecteurs "vides"
-    *********************************************************/
-   public static func == (lhs: Matrice, rhs: Matrice) -> Bool
+    */
+   public static func ==(lhs: Matrice, rhs: Matrice) -> Bool
    {
       var result = (lhs.nbl == rhs.nbl) && (lhs.nbc == rhs.nbc)
       
-      for i in 0..<lhs.data.count
+      if result
       {
-         result = result && (lhs.data[i] == rhs.data[i])
+         for i in 0..<lhs.data.count
+         {
+            result = result && (lhs.data[i] == rhs.data[i])
+         }
       }
       return result
    }
 
-   /*********************************************************/
-   /// Retourne la dim. de la matrice sous forme de String
-   /*********************************************************/
+   /**
+    Compare 2 Matrice<Complexe> avec une certaine précision :
+    Egalité si la distance entre chaque terme est inférieure
+    à une certaine "précision"
+    
+    TODO : Traiter cas de vecteurs "vides"
+    */
+   public static func compare(lhs: Matrice<Complexe>, rhs: Matrice<Complexe>, precision: Double) -> Bool
+   {
+      var result = (lhs.nbl == rhs.nbl) && (lhs.nbc == rhs.nbc)
+      
+      if result
+      {
+         for i in 0..<lhs.data.count
+         {
+            result = result && (abs(lhs.data[i] - rhs.data[i]) < precision)
+         }
+      }
+      return result
+   }
+   /**
+    Compare 2 Matrice<Double> avec une certaine précision :
+    Egalité si la distance entre chaque terme est inférieure
+    à une certaine "précision"
+    
+    TODO : Traiter cas de vecteurs "vides"
+    */
+   public static func compare(lhs: Matrice<Double>, rhs: Matrice<Double>, precision: Double) -> Bool
+   {
+      var result = (lhs.nbl == rhs.nbl) && (lhs.nbc == rhs.nbc)
+      
+      if result
+      {
+         for i in 0..<lhs.data.count
+         {
+            result = result && (abs(lhs.data[i] - rhs.data[i]) < precision)
+         }
+      }
+      return result
+   }
+
+   
+   
+   
+   /**
+    Retourne la dim. de la matrice sous forme de String
+   */
    public func dim() -> String
    {
       return "\(self.nbl)X\(self.nbc)"
@@ -216,7 +291,7 @@ public class Matrice<T: TypeArithmetique>: CustomStringConvertible, Equatable
       return Matrice(data,nbl: m.nbc,nbc: m.nbl)
    }
    
-   
+
    /*********************************************************
     Implémente le "*" d'un scalaire et d'une Matrice
     *********************************************************/
@@ -441,7 +516,7 @@ public func *(lhs: Matrice<Complexe>, rhs: Matrice<Complexe>) -> Matrice<Complex
       print("Dimensions incompatibles ! dans F1")
       return nil
    }
-   else  // on a le bonnes dimensions
+   else  // on a les bonnes dimensions
    {
       var data: [Complexe] = []
       for i in 0...rhs.nbc-1
@@ -451,7 +526,7 @@ public func *(lhs: Matrice<Complexe>, rhs: Matrice<Complexe>) -> Matrice<Complex
             var tempo = Complexe(0.0)
             for k in 0...lhs.nbc-1
             {
-               tempo += rhs[j,k]*lhs[k,i]
+               tempo += lhs[j,k]*rhs[k,i]
             }
             data.append(tempo)
          }
@@ -465,12 +540,13 @@ public func *(lhs: Matrice<Complexe>, rhs: Matrice<Complexe>) -> Matrice<Complex
  *********************************************************/
 public func *(lhs: Matrice<Double>, rhs: Matrice<Double>) -> Matrice<Double>?
 {
+   //print("On entre dans le produit de 2 Matrice<Double>")   
    if (lhs.nbc != rhs.nbl)
    {
       print("Dimensions incompatibles !")
       return nil
    }
-   else  // on a le bonnes dimensions
+   else  // on a les bonnes dimensions
    {
       var data: [Double] = []
       for i in 0...rhs.nbc-1
@@ -480,7 +556,7 @@ public func *(lhs: Matrice<Double>, rhs: Matrice<Double>) -> Matrice<Double>?
             var tempo = 0.0
             for k in 0...lhs.nbc-1
             {
-               tempo += rhs[j,k]*lhs[k,i]
+               tempo += lhs[j,k]*rhs[k,i]
             }
             data.append(tempo)
          }
@@ -547,6 +623,179 @@ public func *(lhs: Matrice<Complexe>, rhs: Matrice<Double>) -> Matrice<Complexe>
    }
 }
 
+/*********************************************************
+ Implémente le "+" de 2 Matrices<Complexe>
+ *********************************************************/
+public func +(lhs: Matrice<Complexe>, rhs: Matrice<Complexe>) -> Matrice<Complexe>?
+{
+   if (lhs.nbl != rhs.nbl) || (lhs.nbc != rhs.nbc)
+   {
+      print("Dimensions incompatibles !")
+      return nil
+   }
+   else  // on a le bonnes dimensions
+   {
+      var data = lhs.data
+      for i in 0...rhs.data.count - 1
+      {
+         data[i] += rhs.data[i]
+      }
+      return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
+   }
+}
+/*********************************************************
+ Implémente le "+" de 2 Matrices<Double>
+ *********************************************************/
+public func +(lhs: Matrice<Double>, rhs: Matrice<Double>) -> Matrice<Double>?
+{
+   if (lhs.nbl != rhs.nbl) || (lhs.nbc != rhs.nbc)
+   {
+      print("Dimensions incompatibles !")
+      return nil
+   }
+   else  // on a le bonnes dimensions
+   {
+      var data = lhs.data
+      for i in 0...rhs.data.count - 1
+      {
+         data[i] += rhs.data[i]
+      }
+      return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
+   }
+}
+/*********************************************************
+ Implémente le "+" d'une Matrice<Double> et d'une Matrice<Complexe>
+ *********************************************************/
+public func +(lhs: Matrice<Double>, rhs: Matrice<Complexe>) -> Matrice<Complexe>?
+{
+   
+   if (lhs.nbl != rhs.nbl) || (lhs.nbc != rhs.nbc)
+   {
+      print("Dimensions incompatibles !")
+      return nil
+   }
+   else  // on a le bonnes dimensions
+   {
+      var data: [Complexe] = rhs.data
+      for i in 0...lhs.data.count - 1
+      {
+         data[i] = data[i] + lhs.data[i]
+      }
+      return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
+   }
+}
+/*********************************************************
+ Implémente le "+" d'une Matrice<Complexe> et d'une Matrice<Double>
+ *********************************************************/
+public func +(lhs: Matrice<Complexe>, rhs: Matrice<Double>) -> Matrice<Complexe>?
+{
+   
+   if (lhs.nbl != rhs.nbl) || (lhs.nbc != rhs.nbc)
+   {
+      print("Dimensions incompatibles !")
+      return nil
+   }
+   else  // on a le bonnes dimensions
+   {
+      var data: [Complexe] = lhs.data
+      for i in 0...rhs.data.count - 1
+      {
+         data[i] = data[i] + rhs.data[i]
+      }
+      return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
+   }
+}
+
+/*********************************************************
+ Test
+ *********************************************************/
+public func generiqueType<T: TypeArithmetique,U: TypeArithmetique>(lhs: Matrice<T>,rhs: Matrice<U>)
+{
+   print("T=\(T.self) et U=\(U.self)")
+   print("Complexe.self =\(Complexe.self)")
+   print("(T.self == Complexe.self) : \(T.self == Complexe.self)")
+   //print("T.self is Complexe.self = \(T.self is Complexe.self)")
+}
+/*********************************************************
+ Implémente le "-" de 2 Matrices<Complexe>
+ *********************************************************/
+public func -(lhs: Matrice<Complexe>, rhs: Matrice<Complexe>) -> Matrice<Complexe>?
+{
+   if (lhs.nbl != rhs.nbl) || (lhs.nbc != rhs.nbc)
+   {
+      print("Dimensions incompatibles !")
+      return nil
+   }
+   else  // on a le bonnes dimensions
+   {
+      var data = lhs.data
+      for i in 0...rhs.data.count - 1
+      {
+         data[i] -= rhs.data[i]
+      }
+      return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
+   }
+}
+/*********************************************************
+ Implémente le "-" de 2 Matrices<Double>
+ *********************************************************/
+public func -(lhs: Matrice<Double>, rhs: Matrice<Double>) -> Matrice<Double>?
+{
+   if (lhs.nbl != rhs.nbl) || (lhs.nbc != rhs.nbc)
+   {
+      print("Dimensions incompatibles !")
+      return nil
+   }
+   else  // on a le bonnes dimensions
+   {
+      var data = lhs.data
+      for i in 0...rhs.data.count - 1
+      {
+         data[i] -= rhs.data[i]
+      }
+      return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
+   }
+}
+/*********************************************************
+ Implémente le "-" d'une Matrice<Double> et d'une Matrice<Complexe>
+ *********************************************************/
+public func -(lhs: Matrice<Double>, rhs: Matrice<Complexe>) -> Matrice<Complexe>?
+{
+   if (lhs.nbl != rhs.nbl) || (lhs.nbc != rhs.nbc)
+   {
+      print("Dimensions incompatibles !")
+      return nil
+   }
+   else  // on a le bonnes dimensions
+   {
+      var data: [Complexe] = rhs.data
+      for i in 0...lhs.data.count - 1
+      {
+         data[i] = -data[i] + lhs.data[i]
+      }
+      return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
+   }
+}
+/*********************************************************
+ Implémente le "-" d'une Matrice<Complexe> et d'une Matrice<Double>
+ *********************************************************/
+public func -(lhs: Matrice<Complexe>, rhs: Matrice<Double>) -> Matrice<Complexe>?
+{
+   if (lhs.nbl != rhs.nbl) || (lhs.nbc != rhs.nbc)
+   {
+      print("Dimensions incompatibles !")
+      return nil
+   }
+   else  // on a le bonnes dimensions
+   {
+      var data: [Complexe] = lhs.data
+      for i in 0...rhs.data.count - 1
+      {
+         data[i] = data[i] + rhs.data[i]
+      }
+      return Matrice(data,nbl: lhs.nbl,nbc: rhs.nbc)
+   }
+}
 
 
 
@@ -589,9 +838,11 @@ public func diag<T: TypeArithmetique>(v: Vecteur<T>, nl: Int, nc: Int) -> Matric
 ///Utilise Lapack
 ///
 /// https://stackoverflow.com/questions/26811843/matrix-inversion-in-swift-using-accelerate-framework/26812159#26812159
+/// http://www.netlib.org/lapack/explore-html/d3/d6a/dgetrf_8f.html
+/// http://www.netlib.org/lapack/explore-html/df/da4/dgetri_8f.html
 ///
 ///      let A = Matrice([8.0,1,6,3,5,7,4,9,2],nbl: 3,nbc: 3)
-///      let B = invert(A)
+///      let B = inv(A)
 ///
 /// TODO: Gérer les erreurs d'indice
 /// TODO: Gérer les matrices non inversibles
@@ -668,6 +919,7 @@ public func inv(_ x: Matrice<Complexe>) -> Matrice<Complexe>
 /// retourne un tuple : [U, D, V] (où D: Matrice diagonale)
 ///
 /// Utilise Lapack
+/// http://www.netlib.org/lapack/explore-html/dd/d9a/group__double_g_ecomputational_gac14340a964d1df1b2f4483844a7c0df1.html#gac14340a964d1df1b2f4483844a7c0df1
 ///
 /// A = U * D * V^t
 ///
@@ -724,5 +976,239 @@ public func svd(_ x: Matrice<Double>) -> (U: Matrice<Double>, D: Matrice<Double>
    resV = Matrice(V,nbl: nbc,nbc: nbc)
    
    return(resU,resD,resV)
+}
+
+
+/*******************************************************************/
+///   POUR ESSAI
+///
+/// Fonction qui retourne la factorisation LU d'une Matrice carrée
+/// ou rectangulaire de Double, à une permutation près des lignes de A
+/// donnée par la matrice de permutation E
+/// En fait                E*A = L*U
+/// Utilise Lapack
+///
+/// http://www.netlib.org/lapack/explore-html/d3/d6a/dgetrf_8f.html
+/// http://www.netlib.org/lapack/explore-html/df/da4/dgetri_8f.html
+///
+///      let A = Matrice([1,2,3,4,5,6,7,8,9,10,11,12],nbl: 3,nbc: 4)
+///      let B = factorisationLU(A)
+///
+/// TODO: Gérer les erreurs d'indice
+/// TODO: Gérer "error"
+/*******************************************************************/
+public func factorisationLU(_ x: Matrice<Double>) -> (U:Matrice<Double>,
+                                                      L:Matrice<Double>,
+                                                      E:Matrice<Double>)
+{
+   let eps = 1.0e-6
+   let nbl = x.nbl
+   let nbc = x.nbc
+   let lda = max(1, nbl)
+   let ldp = min(nbl, nbc)
+   
+   var inMatrix: [Double] = x.data
+   
+   var M = __CLPK_integer(nbl)
+   var N = __CLPK_integer(nbc)
+   var LDA = __CLPK_integer(lda)
+   let LDP = __CLPK_integer(ldp)
+   var pivots = [__CLPK_integer](repeating: 0, count: Int(LDP))
+   var error : __CLPK_integer = 0
+   
+   dgetrf_(&M, &N, &inMatrix, &LDA, &pivots, &error)
+   
+   //print("pivots : \(pivots)")
+   
+   let y = Matrice(inMatrix,nbl: nbl,nbc: nbc)
+   var U: Matrice<Double>
+   var L: Matrice<Double>
+   // Mise en forme des résultats de sortie
+   if nbl>nbc
+   {
+      U = Matrice(nbl: nbc)
+      L = Matrice(y)
+
+      for i in 0...nbc-1
+      {
+         L[i,i] = 1
+      }
+      for i in 1...nbc-1
+      {
+         for j in 0...i-1
+         {
+            L[j,i] = 0
+         }
+      }
+      for i in 0...nbc-1
+      {
+         for j in 0...i
+         {
+            U[j,i] = y[j,i]
+         }
+      }
+   } else
+   {
+      U = Matrice(y)
+      L = Matrice(nbl: nbl )
+      for i in 1...nbl-1
+      {
+         for j in 0...i-1
+         {
+            U[i,j] = 0
+         }
+      }
+      for i in 0...nbl-1
+      {
+         L[i,i] = 1
+      }
+      for i in 1...nbl-1
+      {
+         for j in 0...i-1
+         {
+            L[i,j] = y[i,j]
+         }
+      }
+   }
+   // Calcule la matrice de permutation E
+   let E: Matrice<Double> = Matrice(nbl: nbl)
+   let LU = L*U
+   for l in 0...nbl-1
+   {
+      for k in 0...nbl-1
+      {
+         if Vecteur<Double>.compare(lhs: LU!.ligne(l),rhs: x.ligne(k),precision: eps)
+         {
+            E[l,k] = 1
+            break
+         }
+      }
+   }
+   
+   return (U,L,E)   
+}
+/*******************************************************************/
+///   POUR ESSAI
+///
+/// Fonction qui retourne la factorisation LU d'une Matrice carrée
+/// ou rectangulaire de Double, à une permutation près des lignes de A
+/// donnée par la matrice de permutation E
+/// En fait                E*A = L*U
+/// Utilise Lapack
+///
+/// http://www.netlib.org/lapack/explore-html/d3/d6a/dgetrf_8f.html
+/// http://www.netlib.org/lapack/explore-html/df/da4/dgetri_8f.html
+///
+///      let A = Matrice([1,2,3,4,5,6,7,8,9,10,11,12],nbl: 3,nbc: 4)
+///      let B = factorisationLU(A)
+///
+/// TODO: Gérer les erreurs d'indice
+/// TODO: Gérer "error"
+/*******************************************************************/
+public func factorisationLU(_ x: Matrice<Complexe>) ->  (U:Matrice<Complexe>,
+                                                         L:Matrice<Complexe>,
+                                                         E:Matrice<Double>)
+{
+   let eps = 1.0e-6
+   let nbl = x.nbl
+   let nbc = x.nbc
+   let lda = max(1, nbl)
+   let ldp = min(nbl, nbc)
+   
+   var inMatrix: [__CLPK_doublecomplex] = [__CLPK_doublecomplex](repeating: __CLPK_doublecomplex(r: 0.0,i: 0.0), count: nbl*nbc)
+   var index:Int = 0
+   for _ in 0...nbc-1
+   {
+      for _ in 0...nbl-1
+      {
+         inMatrix[index] = __CLPK_doublecomplex(r: x.data[index].re,i: x.data[index].im)
+         index += 1
+      }
+   }
+
+   var M = __CLPK_integer(nbl)
+   var N = __CLPK_integer(nbc)
+   var LDA = __CLPK_integer(lda)
+   let LDP = __CLPK_integer(ldp)
+   var pivots = [__CLPK_integer](repeating: 0, count: Int(LDP))
+   var error : __CLPK_integer = 0
+   
+   zgetrf_(&M, &N, &inMatrix, &LDA, &pivots, &error)
+   
+   //print("pivots : \(pivots)")
+   
+   // au retour inMatrix est un [__CLPK_doublecomplex] qu'il faut transformer en [Complexe]
+   var newData: [Complexe] = x.data    // uniquement pour avoir bon type et bonnes dimensions
+   for index in 0...newData.count-1
+   {
+      newData[index] = Complexe(re: inMatrix[index].r,im: inMatrix[index].i)
+   }
+   let y = Matrice(newData,nbl: nbl,nbc: nbc)
+   
+   var U: Matrice<Complexe>
+   var L: Matrice<Complexe>
+   // Mise en forme des résultats de sortie
+   if nbl>nbc
+   {
+      U = Matrice(nbl: nbc)
+      L = Matrice(y)
+      
+      for i in 0...nbc-1
+      {
+         L[i,i] = 1
+      }
+      for i in 1...nbc-1
+      {
+         for j in 0...i-1
+         {
+            L[j,i] = 0
+         }
+      }
+      for i in 0...nbc-1
+      {
+         for j in 0...i
+         {
+            U[j,i] = y[j,i]
+         }
+      }
+   } else
+   {
+      U = Matrice(y)
+      L = Matrice(nbl: nbl )
+      for i in 1...nbl-1
+      {
+         for j in 0...i-1
+         {
+            U[i,j] = 0
+         }
+      }
+      for i in 0...nbl-1
+      {
+         L[i,i] = 1
+      }
+      for i in 1...nbl-1
+      {
+         for j in 0...i-1
+         {
+            L[i,j] = y[i,j]
+         }
+      }
+   }
+   // Calcule la matrice de permutation E
+   let E: Matrice<Double> = Matrice(nbl: nbl)
+   let LU = L*U
+   for l in 0...nbl-1
+   {
+      for k in 0...nbl-1
+      {
+         if Vecteur<Complexe>.compare(lhs: LU!.ligne(l),rhs: x.ligne(k),precision: eps)
+         {
+            E[l,k] = 1
+            break
+         }
+      }
+   }
+   
+   return (U,L,E)
 }
 

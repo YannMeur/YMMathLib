@@ -85,7 +85,7 @@ public class Vecteur<T: TypeArithmetique>: Matrice<T>
    }
    
    /*********************************************************
-    Implémente le "==" de 2 vecteurs
+    Implémente le "==" de 2 vecteurs (égalité stricte)
     (pour se conformer au protocole Equatable)
     TODO : Traiter cas de vecteurs "vides"
     *********************************************************/
@@ -99,7 +99,48 @@ public class Vecteur<T: TypeArithmetique>: Matrice<T>
       }
       return result
    }
-   
+
+   /**
+    Compare 2 Vecteur<Complexe> avec une certaine précision :
+    Egalité si la distance entre chaque terme est inférieure
+    à une certaine "précision"
+    
+    TODO : Traiter cas de vecteurs "vides"
+    */
+   public static func compare(lhs: Vecteur<Complexe>, rhs: Vecteur<Complexe>, precision: Double) -> Bool
+   {
+      var result = (lhs.nbl == rhs.nbl) && (lhs.nbc == rhs.nbc)
+      
+      if result
+      {
+         for i in 0..<lhs.data.count
+         {
+            result = result && (abs(lhs.data[i] - rhs.data[i]) < precision)
+         }
+      }
+      return result
+   }
+   /**
+    Compare 2 Vecteur<Double> avec une certaine précision :
+    Egalité si la distance entre chaque terme est inférieure
+    à une certaine "précision"
+    
+    TODO : Traiter cas de vecteurs "vides"
+    */
+   public static func compare(lhs: Vecteur<Double>, rhs: Vecteur<Double>, precision: Double) -> Bool
+   {
+      var result = (lhs.nbl == rhs.nbl) && (lhs.nbc == rhs.nbc)
+      
+      if result
+      {
+         for i in 0..<lhs.data.count
+         {
+            result = result && (abs(lhs.data[i] - rhs.data[i]) < precision)
+         }
+      }
+      return result
+   }
+
    /*********************************************************
     Implémente le "+" de 2 vecteurs
     *********************************************************/
@@ -214,7 +255,7 @@ public class Vecteur<T: TypeArithmetique>: Matrice<T>
 /*********************************************************
  Implémente le "*" de 2 vecteurs (de même nature)
  TODO : vérifier compatibilité des dimensions
- *********************************************************/
+ ********************************************************
 public func *<T: TypeArithmetique>(lhs: Vecteur<T>, rhs: Vecteur<T>) -> Any?
 {
    print(" on passe dans le * de 2 Vecteur")
@@ -262,11 +303,12 @@ public func *<T: TypeArithmetique>(lhs: Vecteur<T>, rhs: Vecteur<T>) -> Any?
       return nil
    }
 }
+*/
 
 /*********************************************************
  Implémente le "*" de 2 vecteurs (de nature différente)
  TODO : vérifier compatibilité des dimensions
- *********************************************************/
+ ********************************************************
 public func *(lhs: Vecteur<Double>, rhs: Vecteur<Complexe>) -> Any?
 {
    
@@ -314,10 +356,11 @@ public func *(lhs: Vecteur<Double>, rhs: Vecteur<Complexe>) -> Any?
       return nil
    }
 }
+ */
 /*********************************************************
  Implémente le "*" de 2 vecteurs (de nature différente)
  TODO : vérifier compatibilité des dimensions
- *********************************************************/
+ ********************************************************
 public func *(lhs: Vecteur<Complexe>, rhs: Vecteur<Double>) -> Any?
 {
    
@@ -365,7 +408,7 @@ public func *(lhs: Vecteur<Complexe>, rhs: Vecteur<Double>) -> Any?
       return nil
    }
 }
-
+*/
 
 
 

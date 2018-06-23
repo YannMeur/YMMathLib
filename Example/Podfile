@@ -9,7 +9,8 @@ target 'YMMathLib_Example' do
   pod 'YMMathLib', :path => '../'
 
   target 'YMMathLib_Tests' do
-    inherit! :search_paths
+     inherit! :search_paths
+     #inherit! :complete
 
     
   end

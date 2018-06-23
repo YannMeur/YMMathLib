@@ -46,8 +46,22 @@ public extension String
 {
    init(form: String, _ z: Complexe)
    {
-      let result: String = String(format: form,z.re)+" + "+String(format: form,z.im)+"i"
-      self = result
+      var result = ""
+      if z.im > 0
+      {
+         result = String(format: form,z.re)+"+"+String(format: form,z.im)+"i"
+      }
+      if z.im < 0
+      {
+         result = String(format: form,z.re)+"-"+String(format: form,-z.im)+"i"
+      }
+      if z.im == 0
+      {
+         result = String(format: form,z.re)
+      }
+
+      
+         self = result
    }
 
    public func index(of string: String, options: CompareOptions = .literal) -> Index?
@@ -254,6 +268,12 @@ public extension Int
    {
       return Double.random * (max - min) + min
    }
+   
+   static public func abs(_ x: Double) -> Double
+   {
+      return abs(x)
+   }
+
 }
 
 /********************************************************************

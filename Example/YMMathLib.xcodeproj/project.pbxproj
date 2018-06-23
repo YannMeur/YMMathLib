@@ -14,6 +14,8 @@
 		ED83F68020348A760038D96B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED83F67F20348A760038D96B /* Assets.xcassets */; };
 		ED83F68320348A760038D96B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED83F68120348A760038D96B /* Main.storyboard */; };
 		ED83F68F20348A760038D96B /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED83F68E20348A760038D96B /* Tests.swift */; };
+		EFDBDCF620DA3B3900AC8784 /* Complexe_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDBDCF520DA3B3900AC8784 /* Complexe_Tests.swift */; };
+		EFDBDCF820DA4A8B00AC8784 /* Matrice_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDBDCF720DA4A8B00AC8784 /* Matrice_Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +27,18 @@
 			remoteInfo = YMMathLib;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EFDBDCE420D9721800AC8784 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		08C2445035E584CA7816A141 /* YMMathLib.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = YMMathLib.podspec; path = ../YMMathLib.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -44,6 +58,12 @@
 		ED83F68A20348A760038D96B /* YMMathLib_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YMMathLib_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED83F68E20348A760038D96B /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		ED83F69020348A760038D96B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EFDBDCE020D963D300AC8784 /* YMMathLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YMMathLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFDBDCEC20D977AA00AC8784 /* YMMathLib.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = YMMathLib.xcworkspace; sourceTree = "<group>"; };
+		EFDBDCEF20D9781700AC8784 /* YMMathLib.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = YMMathLib.xcworkspace; sourceTree = "<group>"; };
+		EFDBDCF120D9786400AC8784 /* YMMathLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YMMathLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFDBDCF520DA3B3900AC8784 /* Complexe_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Complexe_Tests.swift; sourceTree = "<group>"; };
+		EFDBDCF720DA4A8B00AC8784 /* Matrice_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matrice_Tests.swift; sourceTree = "<group>"; };
 		FC540824B024966CC25894D4 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		FCA0A48B017FFD3E6BB0A42C /* Pods-YMMathLib_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YMMathLib_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YMMathLib_Tests/Pods-YMMathLib_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,6 +91,8 @@
 		0BFD4B477CA3302CDF3474D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EFDBDCF120D9786400AC8784 /* YMMathLib.framework */,
+				EFDBDCE020D963D300AC8784 /* YMMathLib.framework */,
 				47E44DC82D5CD34CA58DFFE2 /* Pods_YMMathLib_Example.framework */,
 				0E5A23FE2586A8F5F2A9715A /* Pods_YMMathLib_Tests.framework */,
 			);
@@ -91,6 +113,8 @@
 		ED83F66F20348A760038D96B = {
 			isa = PBXGroup;
 			children = (
+				EFDBDCEC20D977AA00AC8784 /* YMMathLib.xcworkspace */,
+				EFDBDCEF20D9781700AC8784 /* YMMathLib.xcworkspace */,
 				ED83F69A20348B650038D96B /* Podspec Metadata */,
 				ED83F67A20348A760038D96B /* YMMathLib */,
 				ED83F68D20348A760038D96B /* Tests */,
@@ -127,6 +151,8 @@
 			children = (
 				ED83F68E20348A760038D96B /* Tests.swift */,
 				ED83F69020348A760038D96B /* Info.plist */,
+				EFDBDCF520DA3B3900AC8784 /* Complexe_Tests.swift */,
+				EFDBDCF720DA4A8B00AC8784 /* Matrice_Tests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -171,6 +197,7 @@
 				ED83F68620348A760038D96B /* Sources */,
 				ED83F68720348A760038D96B /* Frameworks */,
 				ED83F68820348A760038D96B /* Resources */,
+				EFDBDCE420D9721800AC8784 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -189,7 +216,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					ED83F67720348A760038D96B = {
@@ -312,6 +339,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFDBDCF820DA4A8B00AC8784 /* Matrice_Tests.swift in Sources */,
+				EFDBDCF620DA3B3900AC8784 /* Complexe_Tests.swift in Sources */,
 				ED83F68F20348A760038D96B /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,6 +381,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -359,6 +389,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -409,6 +440,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -416,6 +448,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -481,15 +514,15 @@
 			baseConfigurationReference = FCA0A48B017FFD3E6BB0A42C /* Pods-YMMathLib_Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = GV682UPC82;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.YMMathLib-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YMMathLib_Example.app/Contents/MacOS/YMMathLib_Example";
 			};
 			name = Debug;
 		};
@@ -498,15 +531,15 @@
 			baseConfigurationReference = 3DA9C59A7F2B9B2C9CD26A24 /* Pods-YMMathLib_Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = GV682UPC82;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.YMMathLib-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YMMathLib_Example.app/Contents/MacOS/YMMathLib_Example";
 			};
 			name = Release;
 		};
